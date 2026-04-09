@@ -10,8 +10,8 @@
   <meta property="og:title" content="XuanYan 宣研 — China Missions Research Platform">
   <meta property="og:description" content="Bilingual, AI-powered research connecting 1,400 years of China missions history to today's international student ministry.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://xuanyan.pages.dev">
-  <meta property="og:image" content="https://xuanyan.pages.dev/og-image.png">
+  <meta property="og:url" content="https://xuanyan-cjf.pages.dev">
+  <meta property="og:image" content="https://xuanyan-cjf.pages.dev/og-image.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -19,7 +19,9 @@
   <meta name="twitter:description" content="Bilingual, AI-powered research connecting 1,400 years of China missions history to today's international student ministry.">
 
   <meta name="theme-color" content="#0B1222">
+  <link rel="canonical" href="https://xuanyan-cjf.pages.dev/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230B1222' width='100' height='100' rx='12'/><text y='72' x='50' text-anchor='middle' font-size='60' fill='%23D4A44C' font-family='serif'>宣</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230B1222' width='180' height='180' rx='24'/><text y='130' x='90' text-anchor='middle' font-size='110' fill='%23D4A44C' font-family='serif'>宣</text></svg>">
   <link rel="stylesheet" href="./css/main.css">
 
   <!-- Preload fonts -->
@@ -28,8 +30,9 @@
   <link rel="manifest" href="./manifest.json">
 </head>
 <body>
+  <a href="#app" class="skip-to-content" style="position:absolute;left:-9999px;top:0;z-index:999;padding:8px 16px;background:var(--accent-gold);color:var(--bg-primary);font-weight:600;text-decoration:none;" onfocus="this.style.left='0'" onblur="this.style.left='-9999px'">Skip to content</a>
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="#/" class="nav-logo">宣研 <span>XuanYan</span></a>
       <ul class="nav-links">
@@ -70,7 +73,7 @@
   </div>
 
   <!-- App Container -->
-  <div id="app"></div>
+  <main id="app" role="main"></main>
 
   <script>
     // Set lang attribute from localStorage before app loads (prevents screen reader mismatch)
