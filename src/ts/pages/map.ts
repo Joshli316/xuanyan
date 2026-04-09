@@ -1,5 +1,6 @@
 import { t, getLang } from '../i18n';
 import { setCleanup } from '../main';
+import { mapData as importedMapData } from '../data-loader';
 
 interface MapPoint {
   name: string;
@@ -34,6 +35,9 @@ let markers: any[] = [];
 let animationInterval: ReturnType<typeof setInterval> | null = null;
 
 function loadMapData(): MapPoint[] {
+  if (importedMapData && (importedMapData as MapPoint[]).length > 0) {
+    return importedMapData as MapPoint[];
+  }
   return getDefaultMapData();
 }
 

@@ -1,5 +1,6 @@
 import { t, getLang } from '../i18n';
 import { getRouteParam, navigate } from '../main';
+import { personaCorpora } from '../data-loader';
 
 interface Persona {
   id: string;
@@ -331,8 +332,22 @@ export function renderPersonaChat(): void {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
     sendBtn.disabled = true;
 
-    // Find relevant excerpts
-    const relevantExcerpts = persona!.excerpts.map(e =>
+    // Find relevant excerpts — use rich corpus if available, fall back to inline
+    const corpus = personaCorpora[persona!.id];
+    const allExcerpts = corpus
+      ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
+      : persona!.excerpts;
+
+    // Simple relevance: find excerpts that share words with the query
+    const queryWords = text.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+    const scored = allExcerpts.map(e => {
+      const t = e.text.toLowerCase();
+      const score = queryWords.reduce((s, w) => s + (t.includes(w) ? 1 : 0), 0);
+      return { ...e, score };
+    }).sort((a, b) => b.score - a.score);
+    const topExcerpts = scored.slice(0, 5);
+
+    const relevantExcerpts = topExcerpts.map(e =>
       `[${e.source}, ${e.year}]: "${e.text}"`
     ).join('\n');
 
@@ -393,15 +408,33 @@ export function renderPersonaChat(): void {
 }
 
 function generateFallback(persona: Persona, question: string, lang: string): string {
-  const excerpt = persona.excerpts[0];
-  if (lang === 'cn') {
-    return `<p>作为${persona.name.cn}，让我分享我的经历。</p>
-    <p><em>"${excerpt.text}"</em> — ${excerpt.source}, ${excerpt.year}</p>
-    <p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">注意：AI服务暂时不可用。显示已知来源摘录。</p>`;
-  }
-  return `<p>As ${persona.name.en}, let me share from my experience.</p>
-  <p><em>"${excerpt.text}"</em> — ${excerpt.source}, ${excerpt.year}</p>
-  <p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">Note: AI service temporarily unavailable. Showing known source excerpts.</p>`;
+  // Use rich corpus if available
+  const corpus = personaCorpora[persona.id];
+  const allExcerpts = corpus
+    ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
+    : persona.excerpts;
+
+  // Find most relevant excerpts
+  const queryWords = question.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+  const scored = allExcerpts.map(e => {
+    const t = e.text.toLowerCase();
+    const score = queryWords.reduce((s, w) => s + (t.includes(w) ? 1 : 0), 0);
+    return { ...e, score };
+  }).sort((a, b) => b.score - a.score);
+  const top = scored.slice(0, 3);
+
+  const excerptHtml = top.map(e =>
+    `<p><em>"${e.text}"</em><br><span style="font-size: 0.75rem; color: var(--text-tertiary);">— ${e.source}, ${e.year}</span></p>`
+  ).join('');
+
+  const prefix = lang === 'cn'
+    ? `<p>作为${persona.name.cn}，让我从我的经历和著作中分享：</p>`
+    : `<p>As ${persona.name.en}, let me share from my experience and writings:</p>`;
+  const suffix = lang === 'cn'
+    ? '<p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">注意：AI服务暂时不可用。显示已知来源摘录。</p>'
+    : '<p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">Note: AI service temporarily unavailable. Showing known source excerpts.</p>';
+
+  return prefix + excerptHtml + suffix;
 }
 
 function escapeHtml(text: string): string {

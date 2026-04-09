@@ -1,0 +1,16 @@
+{
+  "name": "XuanYan 宣研",
+  "short_name": "宣研",
+  "description": "China Missions Research Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1222",
+  "theme_color": "#0B1222",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%230B1222' width='512' height='512' rx='64'/><text y='380' x='256' text-anchor='middle' font-size='320' fill='%23D4A44C' font-family='serif'>宣</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

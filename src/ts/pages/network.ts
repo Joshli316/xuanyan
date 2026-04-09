@@ -98,11 +98,18 @@ export function renderNetwork(): void {
         </label>
       </div>
       <div id="network-graph"></div>
+      <div id="network-list" style="display:none; overflow-y:auto; padding:16px;"></div>
       <div class="bio-card" id="bio-card"></div>
     </div>
   `;
 
-  initForceGraph(loadNetworkData());
+  const networkData = loadNetworkData();
+  // Mobile: show list view instead of canvas graph
+  if (window.innerWidth < 768) {
+    renderMobileList(networkData, lang);
+  } else {
+    initForceGraph(networkData);
+  }
 
   setCleanup(() => {
     if (simulation) {
@@ -144,6 +151,37 @@ function initForceGraph(data: NetworkData): void {
 
   let selectedNode: typeof nodes[0] | null = null;
   let hoveredNode: typeof nodes[0] | null = null;
+  let showSecondDegree = false;
+
+  // Wire up 2nd-degree toggle
+  const degreeToggle = document.getElementById('degree-toggle') as HTMLInputElement;
+  if (degreeToggle) {
+    degreeToggle.addEventListener('change', () => {
+      showSecondDegree = degreeToggle.checked;
+      draw();
+    });
+  }
+
+  function getConnectedIds(nodeId: string): Set<string> {
+    const direct = new Set<string>();
+    for (const e of edges) {
+      if (e.source === nodeId) direct.add(e.target);
+      if (e.target === nodeId) direct.add(e.source);
+    }
+    return direct;
+  }
+
+  function getSecondDegreeIds(nodeId: string): Set<string> {
+    const first = getConnectedIds(nodeId);
+    const second = new Set<string>(first);
+    for (const id of first) {
+      for (const id2 of getConnectedIds(id)) {
+        second.add(id2);
+      }
+    }
+    second.delete(nodeId);
+    return second;
+  }
 
   function tick(): void {
     // Simple force-directed layout
@@ -197,15 +235,22 @@ function initForceGraph(data: NetworkData): void {
   function draw(): void {
     ctx.clearRect(0, 0, width, height);
 
+    // Determine visible set based on selection + degree toggle
+    const visibleIds = selectedNode
+      ? (showSecondDegree ? getSecondDegreeIds(selectedNode.id) : getConnectedIds(selectedNode.id))
+      : null;
+
     // Draw edges
     for (const edge of edges) {
       ctx.beginPath();
       ctx.moveTo(edge.sourceNode.x, edge.sourceNode.y);
       ctx.lineTo(edge.targetNode.x, edge.targetNode.y);
-      const isHighlighted = selectedNode &&
+      const isDirectHighlight = selectedNode &&
         (edge.source === selectedNode.id || edge.target === selectedNode.id);
-      ctx.strokeStyle = isHighlighted ? '#D4A44C' : 'rgba(30, 42, 63, 0.5)';
-      ctx.lineWidth = isHighlighted ? 2 : 1;
+      const is2ndDegree = selectedNode && showSecondDegree && visibleIds &&
+        (visibleIds.has(edge.source) && visibleIds.has(edge.target));
+      ctx.strokeStyle = isDirectHighlight ? '#D4A44C' : is2ndDegree ? '#D4A44C55' : 'rgba(30, 42, 63, 0.5)';
+      ctx.lineWidth = isDirectHighlight ? 2 : 1;
       ctx.stroke();
     }
 
@@ -214,10 +259,7 @@ function initForceGraph(data: NetworkData): void {
       const radius = Math.max(6, Math.min(16, node.connections * 2));
       const color = NODE_COLORS[node.type] || '#9B9180';
       const isSelected = selectedNode?.id === node.id;
-      const isConnected = selectedNode && edges.some(e =>
-        (e.source === selectedNode!.id && e.target === node.id) ||
-        (e.target === selectedNode!.id && e.source === node.id)
-      );
+      const isConnected = visibleIds?.has(node.id) ?? false;
 
       ctx.beginPath();
       ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
@@ -328,4 +370,72 @@ function showBioCard(node: NetworkNode): void {
 
 function closeBioCard(): void {
   document.getElementById('bio-card')?.classList.remove('open');
+}
+
+function renderMobileList(data: NetworkData, lang: string): void {
+  const graphEl = document.getElementById('network-graph')!;
+  const listEl = document.getElementById('network-list')!;
+  graphEl.style.display = 'none';
+  listEl.style.display = 'block';
+
+  const sorted = [...data.nodes].sort((a, b) => b.connections - a.connections);
+
+  function renderList(nodes: NetworkNode[]): void {
+    listEl.innerHTML = nodes.map(node => {
+      const color = NODE_COLORS[node.type] || '#9B9180';
+      const connections = data.edges.filter(e => e.source === node.id || e.target === node.id);
+      const connNames = connections.map(e => {
+        const otherId = e.source === node.id ? e.target : e.source;
+        const other = data.nodes.find(n => n.id === otherId);
+        return other ? other.name[lang as 'en' | 'cn'] : '';
+      }).filter(Boolean);
+
+      return `
+        <div style="padding: 16px; background: var(--bg-secondary); border: 1px solid var(--border); border-left: 3px solid ${color}; border-radius: 2px; margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+              <h3 style="font-size: 1rem; margin: 0 0 4px;">${node.name[lang as 'en' | 'cn']}</h3>
+              ${node.name.en !== node.name.cn ? `<p style="font-size: 0.75rem; color: var(--text-tertiary); margin: 0;">${lang === 'en' ? node.name.cn : node.name.en}</p>` : ''}
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-gold);">${node.dates || ''}</span>
+          </div>
+          ${node.role ? `<p style="font-size: 0.8125rem; color: var(--text-secondary); margin: 8px 0 4px;">${node.role[lang as 'en' | 'cn']}</p>` : ''}
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;">
+            <span class="tag" style="border-left: 2px solid ${color};">${node.type}</span>
+            ${node.denomination ? `<span class="tag">${node.denomination}</span>` : ''}
+            <span class="tag">${node.era}</span>
+          </div>
+          ${connNames.length > 0 ? `
+            <div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border);">
+              <p style="font-size: 0.6875rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">${lang === 'en' ? 'Connected to' : '关联'}</p>
+              <p style="font-size: 0.8125rem; color: var(--text-secondary);">${connNames.join(', ')}</p>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  renderList(sorted);
+
+  // Wire up search for mobile
+  document.getElementById('network-search')?.addEventListener('input', (e) => {
+    const query = (e.target as HTMLInputElement).value.toLowerCase();
+    if (!query) { renderList(sorted); return; }
+    const filtered = sorted.filter(n =>
+      n.name.en.toLowerCase().includes(query) || n.name.cn.includes(query)
+    );
+    renderList(filtered);
+  });
+
+  // Wire up filter tabs for mobile
+  document.querySelectorAll('.network-controls .filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.network-controls .filter-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = (btn as HTMLElement).dataset.filter || 'all';
+      const filtered = filter === 'all' ? sorted : sorted.filter(n => n.type === filter);
+      renderList(filtered);
+    });
+  });
 }

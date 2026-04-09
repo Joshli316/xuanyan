@@ -209,10 +209,27 @@ function renderReturnKit(): void {
 
       <div style="display: flex; gap: 12px;">
         <button class="btn btn-primary" onclick="window.print()">${t('returnee.download')}</button>
+        <button class="btn btn-ghost" id="save-offline-btn">${lang === 'en' ? 'Save Offline' : '离线保存'}</button>
         <button class="btn btn-ghost" id="restart-btn">${lang === 'en' ? 'Start Over' : '重新开始'}</button>
       </div>
     </div>
   `;
+
+  document.getElementById('save-offline-btn')?.addEventListener('click', () => {
+    // Save the Return Kit HTML to localStorage so it's available offline via PWA
+    const kitHtml = document.getElementById('return-kit')?.innerHTML || '';
+    localStorage.setItem('xuanyan-return-kit', kitHtml);
+    localStorage.setItem('xuanyan-return-kit-city', formData.city);
+    const btn = document.getElementById('save-offline-btn')!;
+    btn.textContent = lang === 'en' ? 'Saved!' : '已保存！';
+    btn.style.borderColor = 'var(--success)';
+    btn.style.color = 'var(--success)';
+    setTimeout(() => {
+      btn.textContent = lang === 'en' ? 'Save Offline' : '离线保存';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 2000);
+  });
 
   document.getElementById('restart-btn')?.addEventListener('click', () => {
     currentStep = 1;
