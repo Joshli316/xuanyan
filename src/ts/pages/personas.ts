@@ -270,13 +270,13 @@ export function renderPersonasHub(): void {
       </div>
       <div class="persona-grid">
         ${personas.map(p => `
-          <div class="persona-card" onclick="location.hash='/tools/conversations/${p.id}'">
+          <a class="persona-card" href="#/tools/conversations/${p.id}" style="text-decoration:none; color:inherit;">
             <div class="avatar">${p.avatar}</div>
             <h3>${p.name[lang]}</h3>
             ${p.name.en !== p.name.cn ? `<p style="font-size: 0.75rem; color: var(--text-tertiary); margin-bottom: 4px;">${lang === 'en' ? p.name.cn : p.name.en}</p>` : ''}
             <p class="dates">${p.dates}</p>
             <p class="role">${p.role[lang]}</p>
-          </div>
+          </a>
         `).join('')}
       </div>
     </div>
@@ -442,7 +442,9 @@ function escapeHtml(text: string): string {
 }
 
 function formatResponse(text: string): string {
+  // Sanitize AI response then apply safe markdown transforms
   return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n\n/g, '<br><br>')
     .replace(/\n/g, '<br>');

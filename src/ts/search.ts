@@ -99,7 +99,14 @@ export function initSearch(): void {
     loadIndex();
   });
 
+  let debounceTimer: ReturnType<typeof setTimeout>;
   input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => performSearch(), 150);
+  });
+
+  function performSearch(): void {
+    if (!resultsContainer) return;
     const query = input.value.trim();
     if (query.length < 2) {
       resultsContainer.innerHTML = '';
@@ -116,7 +123,7 @@ export function initSearch(): void {
         <p>${highlightMatch(r.excerpt.replace(/[#*_]/g, '').slice(0, 120), query)}</p>
       </div>
     `).join('');
-  });
+  }
 
   resultsContainer.addEventListener('click', (e) => {
     const result = (e.target as HTMLElement).closest('.search-result') as HTMLElement;

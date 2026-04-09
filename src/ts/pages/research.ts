@@ -60,14 +60,14 @@ function renderGrid(reports: Report[], _filter: string): void {
   if (!grid) return;
 
   grid.innerHTML = reports.map(r => `
-    <div class="report-card" data-id="${r.id}" onclick="location.hash='/research/${r.id}'">
+    <a class="report-card" href="#/research/${r.id}" style="text-decoration:none; display:flex; flex-direction:column; gap:12px;" data-id="${r.id}">
       <span class="badge">${r.id}</span>
       <h3>${r.title[lang]}</h3>
       <p class="summary">${r.summary[lang]}</p>
       <div class="tags">
         ${r.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
       </div>
-    </div>
+    </a>
   `).join('');
 }
 

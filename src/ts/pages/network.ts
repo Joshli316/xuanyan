@@ -280,15 +280,24 @@ function initForceGraph(data: NetworkData): void {
     }
   }
 
-  // Animation loop
+  // Animation loop — stops after stabilization to save CPU
   let running = true;
   let frame = 0;
+  let needsRedraw = false;
   function animate(): void {
     if (!running) return;
-    if (frame < 300) tick(); // Stabilize after 300 frames
+    if (frame < 300) {
+      tick();
+      draw();
+      frame++;
+      requestAnimationFrame(animate);
+    } else {
+      draw(); // Final draw after stabilization
+    }
+  }
+  // Expose redraw for interactions
+  function requestRedraw(): void {
     draw();
-    frame++;
-    requestAnimationFrame(animate);
   }
   animate();
 
@@ -308,7 +317,7 @@ function initForceGraph(data: NetworkData): void {
     selectedNode = clicked || null;
     if (clicked) showBioCard(clicked);
     else closeBioCard();
-    draw();
+    requestRedraw();
   });
 
   // Hover
@@ -326,14 +335,14 @@ function initForceGraph(data: NetworkData): void {
   // Search
   document.getElementById('network-search')?.addEventListener('input', (e) => {
     const query = (e.target as HTMLInputElement).value.toLowerCase();
-    if (!query) { selectedNode = null; closeBioCard(); draw(); return; }
+    if (!query) { selectedNode = null; closeBioCard(); requestRedraw(); return; }
     const found = nodes.find(n =>
       n.name.en.toLowerCase().includes(query) || n.name.cn.includes(query)
     );
     if (found) {
       selectedNode = found;
       showBioCard(found);
-      draw();
+      requestRedraw();
     }
   });
 
@@ -342,8 +351,7 @@ function initForceGraph(data: NetworkData): void {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.network-controls .filter-tab').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      // Filter is visual only — dim non-matching
-      draw();
+      requestRedraw();
     });
   });
 }

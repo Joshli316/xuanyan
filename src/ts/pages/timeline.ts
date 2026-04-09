@@ -30,6 +30,7 @@ const ERAS = [
 ];
 
 let autoPlayInterval: ReturnType<typeof setInterval> | null = null;
+let timelineObserver: IntersectionObserver | null = null;
 
 function loadTimeline(): TimelineEvent[] {
   return timelineData as TimelineEvent[];
@@ -101,22 +102,8 @@ export function renderTimeline(): void {
     });
   }
 
-  // Intersection observer for fade-in
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.timeline-event').forEach(el => {
-      observer.observe(el);
-    });
-  }, 100);
-
   setCleanup(() => {
+    if (timelineObserver) { timelineObserver.disconnect(); timelineObserver = null; }
     stopAutoPlay();
   });
 }
@@ -150,15 +137,16 @@ function renderEvents(events: TimelineEvent[], _filter: string): void {
 
   line.innerHTML = html;
 
-  // Re-observe for fade-in
-  const observer = new IntersectionObserver((entries) => {
+  // Disconnect old observer before creating new one
+  if (timelineObserver) timelineObserver.disconnect();
+  timelineObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
   }, { threshold: 0.1 });
-  line.querySelectorAll('.timeline-event').forEach(el => observer.observe(el));
+  line.querySelectorAll('.timeline-event').forEach(el => timelineObserver!.observe(el));
 }
 
 function startAutoPlay(): void {

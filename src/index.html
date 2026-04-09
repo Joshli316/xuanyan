@@ -72,6 +72,10 @@
   <!-- App Container -->
   <div id="app"></div>
 
+  <script>
+    // Set lang attribute from localStorage before app loads (prevents screen reader mismatch)
+    (function() { var l = localStorage.getItem('xuanyan-lang'); if (l === 'cn') document.documentElement.lang = 'zh-CN'; })();
+  </script>
   <script type="module" src="./ts/app.ts"></script>
   <script>
     if ('serviceWorker' in navigator) {

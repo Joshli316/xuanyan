@@ -80,9 +80,10 @@ function searchArchive(query: string, topK: number = 5): ArchiveChunk[] {
     const title = chunk.section.toLowerCase();
 
     for (const term of terms) {
-      // Count occurrences
-      const textMatches = (text.match(new RegExp(term, 'g')) || []).length;
-      const titleMatches = (title.match(new RegExp(term, 'g')) || []).length;
+      // Count occurrences — escape regex special chars from user input
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const textMatches = (text.match(new RegExp(escaped, 'g')) || []).length;
+      const titleMatches = (title.match(new RegExp(escaped, 'g')) || []).length;
       score += textMatches + titleMatches * 3; // Title matches weigh more
     }
 
@@ -273,8 +274,13 @@ function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function sanitizeHtml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 function formatResponse(text: string): string {
-  return text
+  // Sanitize first, then apply safe markdown transforms
+  return sanitizeHtml(text)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[Report (\d+) — ([^\]]+)\]/g, '<a class="citation" href="#/research/$1">[Report $1 — $2]</a>')
     .replace(/\[Report (\d+)\s*-\s*([^\]]+)\]/g, '<a class="citation" href="#/research/$1">[Report $1 — $2]</a>')

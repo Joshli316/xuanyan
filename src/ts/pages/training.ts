@@ -191,7 +191,7 @@ export function renderTraining(): void {
       </div>
       <div class="module-grid">
         ${modules.map(m => `
-          <div class="module-card" onclick="location.hash='/tools/training/${m.id}'">
+          <a class="module-card" href="#/tools/training/${m.id}" style="text-decoration:none; color:inherit; display:block;">
             <div style="display: flex; justify-content: space-between;">
               <span class="number">${m.id.padStart(2, '0')}</span>
               ${progress[m.id] ? '<span class="check">✓</span>' : ''}
@@ -201,7 +201,7 @@ export function renderTraining(): void {
             <div class="progress">
               <div class="progress-fill" style="width: ${progress[m.id] ? '100' : '0'}%"></div>
             </div>
-          </div>
+          </a>
         `).join('')}
       </div>
     </div>

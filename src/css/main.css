@@ -13,7 +13,7 @@
 
   --color-text-primary: #E8E0D4;
   --color-text-secondary: #9B9180;
-  --color-text-tertiary: #6B6358;
+  --color-text-tertiary: #8A7E72;
 
   --color-accent-gold: #D4A44C;
   --color-accent-gold-hover: #E8B85E;
@@ -38,7 +38,7 @@
 
   --text-primary: #E8E0D4;
   --text-secondary: #9B9180;
-  --text-tertiary: #6B6358;
+  --text-tertiary: #8A7E72;
 
   --accent-gold: #D4A44C;
   --accent-gold-hover: #E8B85E;
@@ -124,6 +124,20 @@ a {
 
 a:hover {
   color: var(--accent-gold-hover);
+}
+
+/* Focus indicators for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+.btn:focus-visible,
+.filter-tab:focus-visible,
+.card:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
 }
 
 /* Monospace for data */
