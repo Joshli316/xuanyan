@@ -16,45 +16,40 @@ function getHash(): string {
   return window.location.hash.slice(1) || '/';
 }
 
-function matchRoute(hash: string): Route | undefined {
-  // Try exact match first
+// Shared route matching — returns the matched route and extracted params
+function findMatch(hash: string): { route: Route; params: Record<string, string> } | null {
+  // Exact match first
   const exact = routes.find(r => r.path === hash);
-  if (exact) return exact;
+  if (exact) return { route: exact, params: {} };
 
-  // Try pattern match (e.g., /research/:id)
+  // Pattern match (e.g., /research/:id)
   for (const route of routes) {
     const routeParts = route.path.split('/');
     const hashParts = hash.split('/');
     if (routeParts.length !== hashParts.length) continue;
 
     let match = true;
+    const params: Record<string, string> = {};
     for (let i = 0; i < routeParts.length; i++) {
-      if (routeParts[i].startsWith(':')) continue;
-      if (routeParts[i] !== hashParts[i]) { match = false; break; }
+      if (routeParts[i].startsWith(':')) {
+        params[routeParts[i].slice(1)] = hashParts[i];
+      } else if (routeParts[i] !== hashParts[i]) {
+        match = false;
+        break;
+      }
     }
-    if (match) return route;
+    if (match) return { route, params };
   }
-  return undefined;
+  return null;
+}
+
+function matchRoute(hash: string): Route | undefined {
+  return findMatch(hash)?.route;
 }
 
 export function getRouteParam(paramName: string): string | null {
-  const hash = getHash();
-  for (const route of routes) {
-    const routeParts = route.path.split('/');
-    const hashParts = hash.split('/');
-    if (routeParts.length !== hashParts.length) continue;
-
-    let match = true;
-    for (let i = 0; i < routeParts.length; i++) {
-      if (routeParts[i].startsWith(':')) continue;
-      if (routeParts[i] !== hashParts[i]) { match = false; break; }
-    }
-    if (match) {
-      const idx = routeParts.findIndex(p => p === ':' + paramName);
-      if (idx >= 0) return hashParts[idx];
-    }
-  }
-  return null;
+  const match = findMatch(getHash());
+  return match?.params[paramName] ?? null;
 }
 
 export function navigate(path: string): void {

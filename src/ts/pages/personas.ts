@@ -1,6 +1,6 @@
 import { t, getLang } from '../i18n';
 import { getRouteParam, navigate } from '../main';
-import { personaCorpora } from '../data-loader';
+import { loadPersona } from '../data-loader';
 
 interface Persona {
   id: string;
@@ -333,7 +333,7 @@ export function renderPersonaChat(): void {
     sendBtn.disabled = true;
 
     // Find relevant excerpts — use rich corpus if available, fall back to inline
-    const corpus = personaCorpora[persona!.id];
+    const corpus = await loadPersona(persona!.id);
     const allExcerpts = corpus
       ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
       : persona!.excerpts;
@@ -369,12 +369,12 @@ export function renderPersonaChat(): void {
         messagesDiv.innerHTML += `<div class="chat-message assistant">${formatResponse(answer)}</div>`;
       } else {
         // Fallback: generate from excerpts
-        const fallback = generateFallback(persona!, text, lang);
+        const fallback = await generateFallback(persona!, text, lang);
         messagesDiv.innerHTML += `<div class="chat-message assistant">${fallback}</div>`;
       }
     } catch {
       document.getElementById('loading-msg')?.remove();
-      const fallback = generateFallback(persona!, text, lang);
+      const fallback = await generateFallback(persona!, text, lang);
       messagesDiv.innerHTML += `<div class="chat-message assistant">${fallback}</div>`;
     }
 
@@ -407,9 +407,9 @@ export function renderPersonaChat(): void {
   });
 }
 
-function generateFallback(persona: Persona, question: string, lang: string): string {
+async function generateFallback(persona: Persona, question: string, lang: string): Promise<string> {
   // Use rich corpus if available
-  const corpus = personaCorpora[persona.id];
+  const corpus = await loadPersona(persona.id);
   const allExcerpts = corpus
     ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
     : persona.excerpts;

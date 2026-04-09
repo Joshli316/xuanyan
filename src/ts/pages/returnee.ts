@@ -204,7 +204,7 @@ function renderReturnKit(): void {
         <div class="form-group">
           <input class="form-input" type="email" placeholder="${lang === 'en' ? 'Your email or WeChat' : '你的邮箱或微信'}">
         </div>
-        <button class="btn btn-primary">${lang === 'en' ? 'Request Connection' : '请求联系'}</button>
+        <button class="btn btn-primary" id="connect-btn">${lang === 'en' ? 'Request Connection' : '请求联系'}</button>
       </div>
 
       <div style="display: flex; gap: 12px;">
@@ -229,6 +229,14 @@ function renderReturnKit(): void {
       btn.style.borderColor = '';
       btn.style.color = '';
     }, 2000);
+  });
+
+  document.getElementById('connect-btn')?.addEventListener('click', () => {
+    const btn = document.getElementById('connect-btn')!;
+    btn.textContent = lang === 'en' ? 'Request Sent!' : '请求已发送！';
+    btn.style.background = 'var(--success)';
+    btn.style.borderColor = 'var(--success)';
+    (btn as HTMLButtonElement).disabled = true;
   });
 
   document.getElementById('restart-btn')?.addEventListener('click', () => {

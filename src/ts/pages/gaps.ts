@@ -169,10 +169,18 @@ function showGapDetail(gap: Gap): void {
         <div class="form-group">
           <textarea class="chat-input" rows="2" placeholder="${lang === 'en' ? 'Brief description of your work' : '简要描述你的工作'}"></textarea>
         </div>
-        <button class="btn btn-primary">${lang === 'en' ? 'Submit' : '提交'}</button>
+        <button class="btn btn-primary" id="gap-claim-btn">${lang === 'en' ? 'Submit' : '提交'}</button>
       </div>
     </div>
   `;
 
   detail.scrollIntoView({ behavior: 'smooth' });
+
+  document.getElementById('gap-claim-btn')?.addEventListener('click', () => {
+    const btn = document.getElementById('gap-claim-btn')!;
+    btn.textContent = lang === 'en' ? 'Submitted!' : '已提交！';
+    btn.style.background = 'var(--success)';
+    btn.style.borderColor = 'var(--success)';
+    (btn as HTMLButtonElement).disabled = true;
+  });
 }

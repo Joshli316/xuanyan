@@ -1,6 +1,6 @@
 import { t, getLang } from '../i18n';
 import { setCleanup } from '../main';
-import { timeline as timelineData } from '../data-loader';
+import { loadTimeline as loadTimelineData } from '../data-loader';
 
 interface TimelineEvent {
   year: number;
@@ -32,8 +32,8 @@ const ERAS = [
 let autoPlayInterval: ReturnType<typeof setInterval> | null = null;
 let timelineObserver: IntersectionObserver | null = null;
 
-function loadTimeline(): TimelineEvent[] {
-  return timelineData as TimelineEvent[];
+async function loadTimeline(): Promise<TimelineEvent[]> {
+  return await loadTimelineData() as TimelineEvent[];
 }
 
 export function renderTimeline(): void {
@@ -61,13 +61,12 @@ export function renderTimeline(): void {
         `).join('')}
       </div>
       <div class="timeline-line" id="timeline-line">
-        <p style="color: var(--text-tertiary);">${t('common.loading')}</p>
+        <div style="padding: 48px; text-align: center;"><span class="spinner"></span> <span style="color: var(--text-tertiary); margin-left: 8px;">${t('common.loading')}</span></div>
       </div>
     </div>
   `;
 
-  const events = loadTimeline();
-  {
+  loadTimeline().then(events => {
     renderEvents(events, 'all');
 
     // Filter by category
@@ -100,7 +99,7 @@ export function renderTimeline(): void {
         startAutoPlay();
       }
     });
-  }
+  });
 
   setCleanup(() => {
     if (timelineObserver) { timelineObserver.disconnect(); timelineObserver = null; }

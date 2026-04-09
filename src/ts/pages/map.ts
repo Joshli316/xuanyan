@@ -1,6 +1,6 @@
 import { t, getLang } from '../i18n';
 import { setCleanup } from '../main';
-import { mapData as importedMapData } from '../data-loader';
+import { loadMapData as loadMapDataAsync } from '../data-loader';
 
 interface MapPoint {
   name: string;
@@ -31,13 +31,14 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 let mapInstance: any = null;
-let markers: any[] = [];
+let markers: { marker: any; point: MapPoint }[] = [];
 let animationInterval: ReturnType<typeof setInterval> | null = null;
 
-function loadMapData(): MapPoint[] {
-  if (importedMapData && (importedMapData as MapPoint[]).length > 0) {
-    return importedMapData as MapPoint[];
-  }
+async function loadMapData(): Promise<MapPoint[]> {
+  try {
+    const data = await loadMapDataAsync();
+    if (data && (data as MapPoint[]).length > 0) return data as MapPoint[];
+  } catch { /* fall through */ }
   return getDefaultMapData();
 }
 
@@ -118,8 +119,8 @@ export function renderMap(): void {
   `;
 
   // Load Leaflet dynamically
-  loadLeaflet().then(() => {
-    const data = loadMapData();
+  loadLeaflet().then(async () => {
+    const data = await loadMapData();
     initMap(data);
   });
 
@@ -164,52 +165,54 @@ function initMap(data: MapPoint[]): void {
     maxZoom: 18,
   }).addTo(mapInstance);
 
-  // Create markers
+  // Pre-create all markers once, toggle visibility on filter/slider change
   const slider = document.getElementById('map-slider') as HTMLInputElement;
   const yearDisplay = document.getElementById('map-year')!;
+
+  for (const point of data) {
+    const color = TYPE_COLORS[point.type] || TYPE_COLORS.other;
+    const marker = L.circleMarker([point.lat, point.lng], {
+      radius: 5,
+      fillColor: color,
+      color: color,
+      fillOpacity: 0.7,
+      weight: 1,
+      opacity: 0.9,
+    });
+
+    marker.bindPopup(`
+      <div style="font-family: Inter, sans-serif; font-size: 13px; min-width: 150px;">
+        <strong>${point.name}</strong><br>
+        <span style="opacity: 0.7;">${point.type} · ${point.denomination}</span><br>
+        <span style="font-family: monospace;">Founded: ${point.founded}</span>
+        ${point.closed ? `<br><span style="font-family: monospace;">Closed: ${point.closed}</span>` : ''}
+      </div>
+    `);
+    markers.push({ marker, point });
+  }
 
   function updateMarkers(): void {
     const year = parseInt(slider.value);
     yearDisplay.textContent = String(year);
 
-    // Get active type filters
     const activeTypes = new Set<string>();
     document.querySelectorAll('.layer-toggle input:checked').forEach(cb => {
       activeTypes.add((cb as HTMLInputElement).dataset.type || '');
     });
 
-    // Remove old markers
-    markers.forEach(m => m.remove());
-    markers = [];
+    // Toggle visibility instead of destroy/recreate
+    for (const { marker, point } of markers) {
+      const visible = point.founded <= year &&
+        (!point.closed || point.closed >= year) &&
+        (activeTypes.has(point.type) || point.type === 'other');
 
-    // Add filtered markers
-    for (const point of data) {
-      if (point.founded > year) continue;
-      if (point.closed && point.closed < year) continue;
-      if (!activeTypes.has(point.type) && point.type !== 'other') continue;
-
-      const color = TYPE_COLORS[point.type] || TYPE_COLORS.other;
-      const marker = L.circleMarker([point.lat, point.lng], {
-        radius: 5,
-        fillColor: color,
-        color: color,
-        fillOpacity: 0.7,
-        weight: 1,
-        opacity: 0.9,
-      }).addTo(mapInstance);
-
-      marker.bindPopup(`
-        <div style="font-family: Inter, sans-serif; font-size: 13px; min-width: 150px;">
-          <strong>${point.name}</strong><br>
-          <span style="opacity: 0.7;">${point.type} · ${point.denomination}</span><br>
-          <span style="font-family: monospace;">Founded: ${point.founded}</span>
-          ${point.closed ? `<br><span style="font-family: monospace;">Closed: ${point.closed}</span>` : ''}
-        </div>
-      `);
-      markers.push(marker);
+      if (visible && !mapInstance.hasLayer(marker)) {
+        marker.addTo(mapInstance);
+      } else if (!visible && mapInstance.hasLayer(marker)) {
+        marker.remove();
+      }
     }
 
-    // Update era label
     updateEraLabel(year);
   }
 
