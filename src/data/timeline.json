@@ -1,0 +1,570 @@
+[
+  {
+    "year": 635,
+    "title": { "en": "Alopen arrives in Chang'an", "cn": "阿罗本到达长安" },
+    "description": { "en": "A Syriac monk named Alopen reaches the Tang capital, marking the first recorded Christian presence in China. Emperor Taizong receives him warmly.", "cn": "叙利亚修道士阿罗本到达唐朝首都长安，标志着基督教首次有记录地进入中国。唐太宗亲自接见。" },
+    "category": "nestorian",
+    "location": "Chang'an",
+    "figure": "Alopen"
+  },
+  {
+    "year": 638,
+    "title": { "en": "Imperial edict permits Nestorian teaching", "cn": "唐太宗下诏准许景教传播" },
+    "description": { "en": "Emperor Taizong issues a decree permitting the construction of a Nestorian monastery in Chang'an and the propagation of its teachings throughout the empire.", "cn": "唐太宗颁布诏书，准许在长安建立景教寺院，并允许其教义在全国传播。" },
+    "category": "nestorian",
+    "location": "Chang'an",
+    "figure": "Emperor Taizong"
+  },
+  {
+    "year": 745,
+    "title": { "en": "Nestorian churches renamed 'Daqin Temples'", "cn": "景教教堂更名为'大秦寺'" },
+    "description": { "en": "Emperor Xuanzong orders all Nestorian churches to be called 'Daqin Temples,' recognizing the religion's Roman (Daqin) origins.", "cn": "唐玄宗下令将景教教堂统一更名为'大秦寺'，以其罗马（大秦）起源命名。" },
+    "category": "nestorian",
+    "location": "Chang'an",
+    "figure": "Emperor Xuanzong"
+  },
+  {
+    "year": 781,
+    "title": { "en": "Xi'an Nestorian Stele erected", "cn": "大秦景教流行中国碑建立" },
+    "description": { "en": "The famous 'Stele of the Propagation of the Luminous Religion in China' is erected in Chang'an, documenting 150 years of Nestorian Christianity's history in China.", "cn": "著名的《大秦景教流行中国碑》在长安竖立，以中文和叙利亚文详细记载了景教在中国一百五十年的发展历程。" },
+    "category": "nestorian",
+    "location": "Chang'an",
+    "figure": "Jingjing"
+  },
+  {
+    "year": 845,
+    "title": { "en": "Huichang Suppression ends Nestorian presence", "cn": "会昌灭佛波及景教" },
+    "description": { "en": "Emperor Wuzong's Huichang Suppression targets Buddhism and all foreign religions. Nestorian Christianity is effectively eradicated from Tang China after two centuries.", "cn": "唐武宗发动会昌灭佛运动，波及一切外来宗教。景教在经历了两个世纪的发展后，于中原地区基本消亡。" },
+    "category": "persecution",
+    "location": "Chang'an",
+    "figure": "Emperor Wuzong"
+  },
+  {
+    "year": 1246,
+    "title": { "en": "John of Plano Carpini reaches Mongol court", "cn": "柏朗嘉宾出使蒙古" },
+    "description": { "en": "Franciscan friar John of Plano Carpini is sent by Pope Innocent IV to the Mongol court, opening early Catholic contact with China's rulers.", "cn": "方济各会修士柏朗嘉宾受教宗英诺森四世派遣出使蒙古宫廷，开启了天主教与中国统治者的早期接触。" },
+    "category": "catholic",
+    "location": "Karakorum",
+    "figure": "John of Plano Carpini"
+  },
+  {
+    "year": 1294,
+    "title": { "en": "John of Montecorvino arrives in Khanbaliq", "cn": "孟高维诺到达大都" },
+    "description": { "en": "Franciscan missionary John of Montecorvino arrives in the Yuan capital and establishes the first Catholic mission in China. He later becomes the first Archbishop of Beijing.", "cn": "方济各会传教士孟高维诺到达元朝首都大都，建立了中国第一个天主教传教站，后成为北京首任大主教。" },
+    "category": "catholic",
+    "location": "Beijing",
+    "figure": "John of Montecorvino"
+  },
+  {
+    "year": 1368,
+    "title": { "en": "Fall of Yuan ends Franciscan mission", "cn": "元朝覆灭，方济各会使命终结" },
+    "description": { "en": "The collapse of the Mongol Yuan dynasty and founding of the Ming dynasty leads to the expulsion of foreign missionaries and the disappearance of the Catholic community.", "cn": "蒙古元朝覆灭、明朝建立，外国传教士被驱逐，天主教团体随之消失，基督教在中国再次中断。" },
+    "category": "catholic",
+    "location": "Beijing",
+    "figure": null
+  },
+  {
+    "year": 1552,
+    "title": { "en": "Francis Xavier dies at China's doorstep", "cn": "方济各·沙勿略病逝上川岛" },
+    "description": { "en": "Jesuit co-founder Francis Xavier dies on Shangchuan Island off the coast of Guangdong, within sight of the Chinese mainland he longed to evangelize.", "cn": "耶稣会联合创始人方济各·沙勿略在广东沿海的上川岛病逝，未能踏上他毕生向往的中国大陆。" },
+    "category": "catholic",
+    "location": "Shangchuan Island",
+    "figure": "Francis Xavier"
+  },
+  {
+    "year": 1583,
+    "title": { "en": "Matteo Ricci enters mainland China", "cn": "利玛窦进入中国大陆" },
+    "description": { "en": "Italian Jesuit Matteo Ricci arrives in Zhaoqing, Guangdong, beginning his pioneering approach of cultural accommodation to bring Catholicism to China.", "cn": "意大利耶稣会士利玛窦到达广东肇庆，开创了以文化适应策略向中国传播天主教的先河。" },
+    "category": "catholic",
+    "location": "Zhaoqing",
+    "figure": "Matteo Ricci"
+  },
+  {
+    "year": 1601,
+    "title": { "en": "Ricci received by Emperor Wanli in Beijing", "cn": "利玛窦获万历帝接见" },
+    "description": { "en": "Matteo Ricci is received by the Wanli Emperor in the Forbidden City, presenting gifts of clocks and maps. He is permitted to reside permanently in Beijing.", "cn": "利玛窦在紫禁城受到万历帝接见，献上钟表和地图等礼物，获准长期居留北京。" },
+    "category": "catholic",
+    "location": "Beijing",
+    "figure": "Matteo Ricci"
+  },
+  {
+    "year": 1610,
+    "title": { "en": "Death of Matteo Ricci", "cn": "利玛窦在北京逝世" },
+    "description": { "en": "Matteo Ricci dies in Beijing after 27 years in China. Emperor Wanli grants him a burial plot, an unprecedented honor for a foreigner. He leaves behind a growing Catholic community.", "cn": "利玛窦在华二十七年后于北京逝世。万历帝破例赐予墓地安葬，这是外国人从未获得的殊荣。他留下了一个不断成长的天主教信徒群体。" },
+    "category": "catholic",
+    "location": "Beijing",
+    "figure": "Matteo Ricci"
+  },
+  {
+    "year": 1615,
+    "title": { "en": "Xu Guangqi baptized, becomes leading Catholic convert", "cn": "徐光启受洗，成为天主教核心人物" },
+    "description": { "en": "Scholar-official Xu Guangqi, baptized as Paul, becomes the most prominent Chinese Catholic convert. He collaborates with Jesuits on translations of Western science and mathematics.", "cn": "学者官员徐光启受洗取名保禄，成为最具影响力的中国天主教信徒。他与耶稣会士合作翻译西方科学和数学著作。" },
+    "category": "catholic",
+    "location": "Beijing",
+    "figure": "Xu Guangqi"
+  },
+  {
+    "year": 1692,
+    "title": { "en": "Kangxi Edict of Toleration", "cn": "康熙颁布容教令" },
+    "description": { "en": "Emperor Kangxi issues an edict of toleration, granting Chinese subjects the freedom to practice Christianity. Catholic converts across the empire now number roughly 200,000.", "cn": "康熙帝颁布容教令，允许中国百姓自由信奉天主教。此时全国天主教信徒已达约二十万人。" },
+    "category": "catholic",
+    "location": "Beijing",
+    "figure": "Emperor Kangxi"
+  },
+  {
+    "year": 1704,
+    "title": { "en": "Chinese Rites Controversy erupts", "cn": "中国礼仪之争爆发" },
+    "description": { "en": "Pope Clement XI rules against the Jesuit practice of allowing Chinese Catholics to participate in Confucian rites, sparking a bitter conflict between Rome and the Kangxi Emperor.", "cn": "教宗克雷芒十一世裁定禁止中国天主教徒参与儒家祭祀礼仪，引发罗马教廷与康熙帝之间的激烈冲突。" },
+    "category": "catholic",
+    "location": "Rome / Beijing",
+    "figure": "Pope Clement XI"
+  },
+  {
+    "year": 1724,
+    "title": { "en": "Yongzheng bans Christianity", "cn": "雍正帝禁教" },
+    "description": { "en": "Emperor Yongzheng formally bans Christianity and expels most missionaries from China. Only those serving at the imperial court in scientific capacities are permitted to stay.", "cn": "雍正帝正式下令禁止天主教，驱逐大部分传教士。仅允许在宫廷中从事科学工作的少数传教士留居。" },
+    "category": "persecution",
+    "location": "Beijing",
+    "figure": "Emperor Yongzheng"
+  },
+  {
+    "year": 1807,
+    "title": { "en": "Robert Morrison arrives in Canton", "cn": "马礼逊到达广州" },
+    "description": { "en": "Robert Morrison, the first Protestant missionary to China, arrives in Canton. He begins the monumental task of translating the Bible into Chinese.", "cn": "首位来华新教传教士马礼逊到达广州，开始了将《圣经》翻译成中文的艰巨工程。" },
+    "category": "protestant",
+    "location": "Guangzhou",
+    "figure": "Robert Morrison"
+  },
+  {
+    "year": 1819,
+    "title": { "en": "Morrison completes Chinese Bible translation", "cn": "马礼逊完成中文圣经翻译" },
+    "description": { "en": "After twelve years of painstaking work, Robert Morrison completes the first full Protestant translation of the Bible into Chinese, a landmark achievement in Chinese Christian history.", "cn": "经过十二年的艰辛努力，马礼逊完成了首部新教中文圣经全译本，成为中国基督教史上的里程碑。" },
+    "category": "protestant",
+    "location": "Malacca",
+    "figure": "Robert Morrison"
+  },
+  {
+    "year": 1842,
+    "title": { "en": "Treaty of Nanjing opens treaty ports", "cn": "《南京条约》开放通商口岸" },
+    "description": { "en": "The Treaty of Nanjing ending the First Opium War opens five treaty ports to foreign trade and residence, including missionaries. Christianity becomes entangled with Western imperialism.", "cn": "结束第一次鸦片战争的《南京条约》开放五个通商口岸，外国商人和传教士得以进入。基督教由此与西方帝国主义产生了难以分割的纠葛。" },
+    "category": "protestant",
+    "location": "Nanjing",
+    "figure": null
+  },
+  {
+    "year": 1853,
+    "title": { "en": "Taiping Heavenly Kingdom established", "cn": "太平天国定都天京" },
+    "description": { "en": "Hong Xiuquan establishes the Taiping Heavenly Kingdom in Nanjing, a pseudo-Christian theocratic state. The resulting civil war kills an estimated 20-30 million people.", "cn": "洪秀全在南京建立太平天国，一个带有伪基督教色彩的神权政权。由此引发的内战造成约两千万至三千万人死亡。" },
+    "category": "indigenous",
+    "location": "Nanjing",
+    "figure": "Hong Xiuquan"
+  },
+  {
+    "year": 1858,
+    "title": { "en": "Treaty of Tianjin guarantees religious freedom", "cn": "《天津条约》保障宗教自由" },
+    "description": { "en": "The Treaty of Tianjin following the Second Opium War grants missionaries the right to travel and proselytize freely throughout China's interior.", "cn": "第二次鸦片战争后签订的《天津条约》赋予传教士在中国内地自由旅行和传教的权利。" },
+    "category": "protestant",
+    "location": "Tianjin",
+    "figure": null
+  },
+  {
+    "year": 1865,
+    "title": { "en": "Hudson Taylor founds China Inland Mission", "cn": "戴德生创立中国内地会" },
+    "description": { "en": "Hudson Taylor founds the China Inland Mission (CIM), the first major faith mission. It sends missionaries into China's unreached interior provinces, eventually becoming the largest mission agency in the country.", "cn": "戴德生创立中国内地会（CIM），这是第一个主要的信心差会。内地会向中国未曾接触福音的内陆省份派遣传教士，最终成为在华最大的差会组织。" },
+    "category": "protestant",
+    "location": "London / China",
+    "figure": "Hudson Taylor"
+  },
+  {
+    "year": 1870,
+    "title": { "en": "Tianjin Massacre", "cn": "天津教案" },
+    "description": { "en": "A violent anti-foreign, anti-Christian riot in Tianjin kills French nuns, a consul, and Chinese converts. It reflects deep tensions between Christian missions and Chinese society.", "cn": "天津爆发激烈的反洋教暴动，法国修女、领事及中国信徒遇害。这场事件深刻反映了基督教传教事业与中国社会之间的尖锐矛盾。" },
+    "category": "persecution",
+    "location": "Tianjin",
+    "figure": null
+  },
+  {
+    "year": 1885,
+    "title": { "en": "Cambridge Seven join China Inland Mission", "cn": "剑桥七杰加入中国内地会" },
+    "description": { "en": "Seven prominent Cambridge University athletes and scholars join the China Inland Mission, sparking a wave of missionary enthusiasm across British universities.", "cn": "七位著名的剑桥大学运动员和学者加入中国内地会，在英国大学中掀起了一股宣教热潮。" },
+    "category": "protestant",
+    "location": "Cambridge / China",
+    "figure": "C.T. Studd"
+  },
+  {
+    "year": 1887,
+    "title": { "en": "Lottie Moon begins influential Pingdu ministry", "cn": "慕拉第在平度开展事工" },
+    "description": { "en": "Southern Baptist missionary Lottie Moon pioneers effective evangelism in Pingdu, Shandong. Her letters home inspire the annual Lottie Moon Christmas Offering that raises billions for missions.", "cn": "美南浸信会传教士慕拉第在山东平度开创了卓有成效的布道事工。她的家书激发了以她命名的年度圣诞奉献，至今已为宣教事业募集数十亿美元。" },
+    "category": "protestant",
+    "location": "Pingdu, Shandong",
+    "figure": "Lottie Moon"
+  },
+  {
+    "year": 1900,
+    "title": { "en": "Boxer Rebellion martyrs", "cn": "义和团运动中的殉道者" },
+    "description": { "en": "The Boxer Uprising kills 189 Protestant missionaries, 47 Catholic priests and nuns, and an estimated 30,000 Chinese Christians. It is the bloodiest persecution of Christians in Chinese history.", "cn": "义和团运动中，189名新教传教士、47名天主教神父和修女以及约三万名中国基督徒被杀害。这是中国历史上最为惨烈的迫害基督徒事件。" },
+    "category": "persecution",
+    "location": "North China",
+    "figure": null
+  },
+  {
+    "year": 1905,
+    "title": { "en": "Chinese YMCA movement grows", "cn": "中国基督教青年会蓬勃发展" },
+    "description": { "en": "The YMCA becomes one of the most influential Christian organizations in China, connecting Christianity with modern education, social reform, and Chinese nationalism.", "cn": "基督教青年会成为中国最具影响力的基督教组织之一，将基督教与现代教育、社会改革和民族主义联系起来。" },
+    "category": "protestant",
+    "location": "Shanghai",
+    "figure": null
+  },
+  {
+    "year": 1917,
+    "title": { "en": "True Jesus Church founded", "cn": "真耶稣教会成立" },
+    "description": { "en": "Wei Enbo (Paul Wei) establishes the True Jesus Church in Beijing, one of the earliest independent Chinese Christian denominations, emphasizing Pentecostal practices and Chinese leadership.", "cn": "魏恩波（魏保罗）在北京创立真耶稣教会，这是最早的中国自立基督教教派之一，强调五旬节信仰和中国人自主领导。" },
+    "category": "indigenous",
+    "location": "Beijing",
+    "figure": "Wei Enbo"
+  },
+  {
+    "year": 1922,
+    "title": { "en": "Anti-Christian Movement sweeps universities", "cn": "非基督教运动席卷高校" },
+    "description": { "en": "The Anti-Christian Movement, fueled by nationalism and Marxism, sweeps through Chinese universities. Students attack Christianity as a tool of imperialism.", "cn": "在民族主义和马克思主义的推动下，非基督教运动席卷中国各大高校。学生们抨击基督教为帝国主义的工具。" },
+    "category": "persecution",
+    "location": "Beijing / Shanghai",
+    "figure": null
+  },
+  {
+    "year": 1927,
+    "title": { "en": "Nationalist crisis forces missionary evacuation", "cn": "国民革命迫使传教士大撤离" },
+    "description": { "en": "Anti-foreign violence during the Northern Expedition forces the emergency evacuation of most Protestant missionaries from China's interior, a turning point for foreign missions.", "cn": "北伐期间的反外国暴力事件迫使大部分新教传教士紧急撤离中国内地，这成为外国在华宣教事业的一个重要转折点。" },
+    "category": "protestant",
+    "location": "Nanjing / Wuhan",
+    "figure": null
+  },
+  {
+    "year": 1927,
+    "title": { "en": "Watchman Nee establishes Local Church movement", "cn": "倪柝声创建地方教会" },
+    "description": { "en": "Watchman Nee (Ni Tuosheng) founds the Local Church (Little Flock) movement in Fuzhou, emphasizing indigenous Chinese church leadership free from Western denominational structures.", "cn": "倪柝声在福州创立地方教会（小群），强调脱离西方宗派体系的中国自主教会领导模式。" },
+    "category": "indigenous",
+    "location": "Fuzhou",
+    "figure": "Watchman Nee"
+  },
+  {
+    "year": 1928,
+    "title": { "en": "Church of Christ in China formed", "cn": "中华基督教会成立" },
+    "description": { "en": "Multiple Protestant denominations merge to form the Church of Christ in China, the largest ecumenical union in Chinese Protestant history, representing about one-third of all Protestants.", "cn": "多个新教宗派合并成立中华基督教会，这是中国新教历史上最大的跨宗派联合组织，代表约三分之一的新教徒。" },
+    "category": "protestant",
+    "location": "Shanghai",
+    "figure": null
+  },
+  {
+    "year": 1930,
+    "title": { "en": "Jesus Family commune movement begins", "cn": "耶稣家庭公社运动兴起" },
+    "description": { "en": "Jing Dianying founds the Jesus Family in Mazhuang, Shandong, a radical communal Christian movement where members share all possessions. It grows to over 100 communities.", "cn": "敬奠瀛在山东马庄创立耶稣家庭，这是一个信徒共享一切财产的激进基督教公社运动。后来发展到一百多个社区。" },
+    "category": "indigenous",
+    "location": "Mazhuang, Shandong",
+    "figure": "Jing Dianying"
+  },
+  {
+    "year": 1931,
+    "title": { "en": "John Sung's revival campaigns transform churches", "cn": "宋尚节奋兴布道震动教会" },
+    "description": { "en": "Evangelist John Sung (Song Shangjie) begins his legendary revival campaigns across China and Southeast Asia, drawing massive crowds and sparking one of the greatest revivals in Chinese church history.", "cn": "布道家宋尚节开始了他在中国和东南亚的传奇奋兴布道运动，吸引了大量群众，掀起了中国教会历史上最伟大的复兴浪潮之一。" },
+    "category": "indigenous",
+    "location": "China / Southeast Asia",
+    "figure": "John Sung"
+  },
+  {
+    "year": 1934,
+    "title": { "en": "Wang Mingdao begins independent Beijing ministry", "cn": "王明道开始北京独立事工" },
+    "description": { "en": "Wang Mingdao establishes the Christian Tabernacle in Beijing, becoming one of the most respected independent Chinese church leaders, known for his uncompromising theology.", "cn": "王明道在北京建立基督徒会堂，成为最受尊敬的中国独立教会领袖之一，以其坚定不移的神学立场著称。" },
+    "category": "indigenous",
+    "location": "Beijing",
+    "figure": "Wang Mingdao"
+  },
+  {
+    "year": 1937,
+    "title": { "en": "Japanese invasion devastates Chinese churches", "cn": "日本侵华重创中国教会" },
+    "description": { "en": "The Second Sino-Japanese War begins, devastating Christian communities. Missionaries and Chinese Christians suffer under Japanese occupation; many institutions relocate to western China.", "cn": "全面抗日战争爆发，基督教社区遭受重创。传教士和中国基督徒在日占区受苦，许多教会机构被迫西迁。" },
+    "category": "persecution",
+    "location": "China",
+    "figure": null
+  },
+  {
+    "year": 1949,
+    "title": { "en": "Communist victory; missionaries begin departure", "cn": "共产党建政；传教士陆续离华" },
+    "description": { "en": "The founding of the People's Republic of China under Mao Zedong begins the systematic expulsion of all foreign missionaries. At this point there are roughly 1 million Protestants and 3 million Catholics in China.", "cn": "毛泽东领导下的中华人民共和国成立，开始系统性地驱逐所有外国传教士。此时中国约有一百万新教徒和三百万天主教徒。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": "Mao Zedong"
+  },
+  {
+    "year": 1950,
+    "title": { "en": "Three-Self Patriotic Movement manifesto published", "cn": "三自爱国运动宣言发表" },
+    "description": { "en": "Wu Yaozong publishes the 'Christian Manifesto' calling for a self-governing, self-supporting, self-propagating church, launching the Three-Self Patriotic Movement under Communist Party guidance.", "cn": "吴耀宗发表《基督教宣言》，号召建立自治、自养、自传的教会，在共产党的引导下发起三自爱国运动。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": "Wu Yaozong"
+  },
+  {
+    "year": 1951,
+    "title": { "en": "Last foreign missionaries expelled from China", "cn": "最后一批外国传教士被驱逐" },
+    "description": { "en": "By the end of 1951, virtually all foreign missionaries have been expelled or imprisoned. The era of Western-led missions in China ends after nearly 150 years.", "cn": "到1951年底，几乎所有外国传教士已被驱逐或入狱。持续近一百五十年的西方主导在华宣教时代宣告终结。" },
+    "category": "contemporary",
+    "location": "China",
+    "figure": null
+  },
+  {
+    "year": 1952,
+    "title": { "en": "Watchman Nee arrested", "cn": "倪柝声被捕" },
+    "description": { "en": "Watchman Nee is arrested by the Communist government on charges of espionage and counter-revolution. He will spend the remaining 20 years of his life in prison.", "cn": "倪柝声以间谍罪和反革命罪被共产党政府逮捕。此后他在狱中度过了生命最后的二十年。" },
+    "category": "persecution",
+    "location": "Shanghai",
+    "figure": "Watchman Nee"
+  },
+  {
+    "year": 1954,
+    "title": { "en": "TSPM formally established", "cn": "三自爱国运动委员会正式成立" },
+    "description": { "en": "The Three-Self Patriotic Movement is formally established as the only legal Protestant organization in China, bringing all churches under state supervision.", "cn": "中国基督教三自爱国运动委员会正式成立，成为唯一合法的新教组织，所有教会被纳入国家监管。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": "Wu Yaozong"
+  },
+  {
+    "year": 1955,
+    "title": { "en": "Wang Mingdao arrested for refusing TSPM", "cn": "王明道因拒绝加入三自被捕" },
+    "description": { "en": "Wang Mingdao is arrested after publicly refusing to join the TSPM, denouncing it as a political tool. His imprisonment becomes a defining moment for China's house church movement.", "cn": "王明道因公开拒绝加入三自爱国运动、谴责其为政治工具而被捕入狱。他的入狱成为中国家庭教会运动的标志性事件。" },
+    "category": "persecution",
+    "location": "Beijing",
+    "figure": "Wang Mingdao"
+  },
+  {
+    "year": 1957,
+    "title": { "en": "Catholic Patriotic Association formed", "cn": "中国天主教爱国会成立" },
+    "description": { "en": "The Chinese government establishes the Chinese Patriotic Catholic Association, severing ties with Rome and creating a state-controlled Catholic church that appoints its own bishops.", "cn": "中国政府成立中国天主教爱国会，切断与罗马教廷的联系，建立由国家控制、自行任命主教的天主教组织。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": null
+  },
+  {
+    "year": 1966,
+    "title": { "en": "Cultural Revolution: all churches closed", "cn": "文化大革命：所有教堂关闭" },
+    "description": { "en": "The Cultural Revolution begins. Red Guards close every church in China, burn Bibles, and persecute believers. Even the TSPM is shut down. Christianity goes entirely underground.", "cn": "文化大革命爆发。红卫兵关闭中国所有教堂、焚烧圣经、迫害信徒。连三自教会也被取缔。基督教完全转入地下。" },
+    "category": "persecution",
+    "location": "China",
+    "figure": "Mao Zedong"
+  },
+  {
+    "year": 1972,
+    "title": { "en": "Watchman Nee dies in prison", "cn": "倪柝声狱中去世" },
+    "description": { "en": "Watchman Nee dies in a labor camp in Anhui province after 20 years of imprisonment. A note found under his pillow reads: 'Christ is the Son of God who died for the redemption of sinners and rose again.'", "cn": "倪柝声在安徽劳改农场去世，被囚禁整整二十年。枕头下留有纸条：'基督是神的儿子，为赎罪人的罪而死，又复活了。'" },
+    "category": "persecution",
+    "location": "Anhui",
+    "figure": "Watchman Nee"
+  },
+  {
+    "year": 1976,
+    "title": { "en": "Death of Mao; Cultural Revolution ends", "cn": "毛泽东去世；文化大革命结束" },
+    "description": { "en": "Mao Zedong's death ends the Cultural Revolution. Underground house churches, which had grown secretly during the persecution, begin to emerge from hiding.", "cn": "毛泽东去世，文化大革命结束。在迫害中秘密成长的地下家庭教会开始浮出水面。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": "Mao Zedong"
+  },
+  {
+    "year": 1979,
+    "title": { "en": "Churches reopen under Deng Xiaoping reforms", "cn": "邓小平改革开放后教堂重新开放" },
+    "description": { "en": "Under Deng Xiaoping's Reform and Opening Up policy, churches begin to reopen. The government discovers that far from dying out, Christianity grew dramatically underground during the Cultural Revolution.", "cn": "在邓小平改革开放政策下，教堂开始重新开放。政府惊讶地发现，基督教不仅没有消亡，反而在文革期间地下大幅增长。" },
+    "category": "contemporary",
+    "location": "China",
+    "figure": "Deng Xiaoping"
+  },
+  {
+    "year": 1980,
+    "title": { "en": "China Christian Council established under K.H. Ting", "cn": "丁光训主导成立中国基督教协会" },
+    "description": { "en": "Bishop K.H. Ting (Ding Guangxun) establishes the China Christian Council alongside the TSPM as the official Protestant body, overseeing the reopening of churches and seminaries.", "cn": "丁光训主教主导成立中国基督教协会，与三自爱国运动委员会共同作为官方新教机构，负责教堂和神学院的重新开放。" },
+    "category": "contemporary",
+    "location": "Nanjing",
+    "figure": "K.H. Ting"
+  },
+  {
+    "year": 1980,
+    "title": { "en": "Wang Mingdao released after 23 years in prison", "cn": "王明道被囚23年后获释" },
+    "description": { "en": "Wang Mingdao is finally released from prison after 23 years. Elderly and nearly blind, he remains a towering symbol of faithfulness for China's house church movement.", "cn": "王明道在被囚禁二十三年后终获释放。虽已年迈且几近失明，他始终是中国家庭教会运动坚守信仰的精神丰碑。" },
+    "category": "contemporary",
+    "location": "Shanghai",
+    "figure": "Wang Mingdao"
+  },
+  {
+    "year": 1983,
+    "title": { "en": "Amity Foundation established; Bible printing begins", "cn": "爱德基金会成立；圣经印刷启动" },
+    "description": { "en": "The Amity Foundation is established in Nanjing. Its Amity Printing Company will become the world's largest Bible printer, producing over 200 million copies.", "cn": "爱德基金会在南京成立。其爱德印刷有限公司后来成为世界上最大的圣经印刷商，累计印刷超过两亿册。" },
+    "category": "contemporary",
+    "location": "Nanjing",
+    "figure": "K.H. Ting"
+  },
+  {
+    "year": 1989,
+    "title": { "en": "Tiananmen Square aftermath tightens religious controls", "cn": "天安门事件后宗教管控收紧" },
+    "description": { "en": "After the Tiananmen Square protests, the government tightens control over all civil society organizations, including churches. House church leaders face increased surveillance.", "cn": "天安门事件后，政府加强了对所有民间社会组织的管控，教会也不例外。家庭教会领袖面临更严密的监控。" },
+    "category": "persecution",
+    "location": "Beijing",
+    "figure": null
+  },
+  {
+    "year": 1992,
+    "title": { "en": "Wenzhou revival; 'China's Jerusalem' emerges", "cn": "温州复兴；'中国的耶路撒冷'崛起" },
+    "description": { "en": "Wenzhou, Zhejiang emerges as a major Christian hub with over a million believers and hundreds of prominent church buildings, earning it the nickname 'China's Jerusalem.'", "cn": "浙江温州成为重要的基督教中心，拥有超过百万信徒和数百座醒目的教堂建筑，赢得了'中国的耶路撒冷'之称。" },
+    "category": "contemporary",
+    "location": "Wenzhou, Zhejiang",
+    "figure": null
+  },
+  {
+    "year": 1996,
+    "title": { "en": "Henan house church revival peaks", "cn": "河南家庭教会复兴达到高峰" },
+    "description": { "en": "Henan province becomes the heartland of China's house church movement, with networks like Fangcheng, Tanghe, and China Gospel Fellowship each numbering millions of believers.", "cn": "河南省成为中国家庭教会运动的核心地带，方城团队、唐河团队、中华福音团契等网络各拥有数百万信徒。" },
+    "category": "contemporary",
+    "location": "Henan",
+    "figure": null
+  },
+  {
+    "year": 1998,
+    "title": { "en": "Back to Jerusalem movement launched", "cn": "'传回耶路撒冷'运动启动" },
+    "description": { "en": "Chinese house church networks revive the 'Back to Jerusalem' vision, aspiring to send 100,000 Chinese missionaries westward along the Silk Road to evangelize the unreached 10/40 Window.", "cn": "中国家庭教会网络重新提出'传回耶路撒冷'异象，立志差派十万华人宣教士沿丝绸之路向西，向10/40之窗的未得之民传福音。" },
+    "category": "contemporary",
+    "location": "China",
+    "figure": null
+  },
+  {
+    "year": 2000,
+    "title": { "en": "Chinese student ministry grows globally", "cn": "海外中国学生事工蓬勃发展" },
+    "description": { "en": "As Chinese students flood Western universities, campus ministries report unprecedented numbers of Chinese students coming to faith. Diaspora student ministry becomes a major mission frontier.", "cn": "随着大量中国留学生涌入西方大学，校园事工报告前所未有的中国学生归信基督。海外留学生事工成为重要的宣教前沿。" },
+    "category": "contemporary",
+    "location": "Global",
+    "figure": null
+  },
+  {
+    "year": 2005,
+    "title": { "en": "Urban intellectual churches emerge in Beijing", "cn": "北京城市知识分子教会兴起" },
+    "description": { "en": "A new wave of urban house churches emerges in Beijing and other major cities, led by educated professionals and intellectuals. These differ markedly from rural house church networks.", "cn": "一批新型城市家庭教会在北京等大城市兴起，由受过高等教育的专业人士和知识分子领导，与农村家庭教会网络有着显著不同。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": null
+  },
+  {
+    "year": 2007,
+    "title": { "en": "Bicentennial of Protestant missions in China", "cn": "新教来华宣教两百周年" },
+    "description": { "en": "The 200th anniversary of Robert Morrison's arrival is marked by celebrations and reflection. Estimates of Chinese Christians range from 50 to 100 million, a dramatic growth from 1 million in 1949.", "cn": "各地纪念马礼逊来华两百周年。中国基督徒人数估计在五千万至一亿之间，较1949年的一百万人实现了惊人增长。" },
+    "category": "contemporary",
+    "location": "China / Global",
+    "figure": "Robert Morrison"
+  },
+  {
+    "year": 2008,
+    "title": { "en": "Beijing Olympics; Shouwang Church confrontation begins", "cn": "北京奥运；守望教会冲突的开端" },
+    "description": { "en": "Around the Beijing Olympics, authorities begin pressuring large unregistered urban churches. Shouwang Church in Beijing becomes a high-profile case as it seeks to worship openly.", "cn": "北京奥运会前后，当局开始向大型未登记城市教会施压。北京守望教会因坚持公开聚会而成为备受关注的标志性事件。" },
+    "category": "persecution",
+    "location": "Beijing",
+    "figure": "Jin Tianming"
+  },
+  {
+    "year": 2011,
+    "title": { "en": "Shouwang Church forced into outdoor worship", "cn": "守望教会被迫露天聚会" },
+    "description": { "en": "After being locked out of its rented premises, Beijing's Shouwang Church begins outdoor worship services, leading to repeated detentions of its members and pastor Jin Tianming's house arrest.", "cn": "在被拒于租用场所之外后，北京守望教会开始露天聚会，导致教会成员多次被拘留，牧师金天明被软禁。" },
+    "category": "persecution",
+    "location": "Beijing",
+    "figure": "Jin Tianming"
+  },
+  {
+    "year": 2014,
+    "title": { "en": "Wenzhou cross demolition campaign", "cn": "温州十字架强拆运动" },
+    "description": { "en": "The Zhejiang provincial government launches a campaign to demolish crosses from church buildings, removing over 1,500 crosses in two years, including from TSPM-registered churches.", "cn": "浙江省政府发起强拆教堂十字架运动，两年内拆除一千五百余座十字架，连三自登记教会也未能幸免。" },
+    "category": "persecution",
+    "location": "Zhejiang",
+    "figure": null
+  },
+  {
+    "year": 2015,
+    "title": { "en": "New national security law impacts religious freedom", "cn": "新《国家安全法》影响宗教自由" },
+    "description": { "en": "China passes a sweeping National Security Law that broadens the state's authority to regulate religious activities deemed threats to social stability or national security.", "cn": "中国通过涵盖范围广泛的《国家安全法》，扩大了国家对被视为威胁社会稳定或国家安全的宗教活动的管控权力。" },
+    "category": "persecution",
+    "location": "Beijing",
+    "figure": null
+  },
+  {
+    "year": 2018,
+    "title": { "en": "New Religious Affairs Regulations tighten control", "cn": "新《宗教事务条例》收紧管控" },
+    "description": { "en": "Revised Religious Affairs Regulations take effect, imposing stricter controls on unregistered gatherings, online religious content, and religious education of minors.", "cn": "修订版《宗教事务条例》正式施行，对未登记聚会、网络宗教内容和未成年人宗教教育实施更严格管控。" },
+    "category": "persecution",
+    "location": "China",
+    "figure": "Xi Jinping"
+  },
+  {
+    "year": 2018,
+    "title": { "en": "Wang Yi and Early Rain Covenant Church raided", "cn": "王怡与秋雨圣约教会被查抄" },
+    "description": { "en": "Pastor Wang Yi and over 100 members of Early Rain Covenant Church in Chengdu are detained in a sweeping raid. Wang Yi becomes the most prominent house church leader imprisoned in the Xi era.", "cn": "成都秋雨圣约教会牧师王怡及百余名教会成员在大规模搜查中被拘留。王怡成为习近平时代被监禁的最知名家庭教会领袖。" },
+    "category": "persecution",
+    "location": "Chengdu",
+    "figure": "Wang Yi"
+  },
+  {
+    "year": 2018,
+    "title": { "en": "Xi Jinping's Sinicization of religion policy", "cn": "习近平推行宗教中国化政策" },
+    "description": { "en": "Xi Jinping formally promotes 'Sinicization of religion' as state policy, requiring all religions in China to adapt to Chinese culture and socialist values under CCP leadership.", "cn": "习近平正式将'宗教中国化'作为国家政策推行，要求中国所有宗教在中共领导下适应中国文化和社会主义核心价值观。" },
+    "category": "contemporary",
+    "location": "Beijing",
+    "figure": "Xi Jinping"
+  },
+  {
+    "year": 2019,
+    "title": { "en": "Wang Yi sentenced to 9 years in prison", "cn": "王怡被判处九年有期徒刑" },
+    "description": { "en": "Pastor Wang Yi is secretly sentenced to 9 years in prison on charges of 'inciting subversion of state power.' His pre-written declaration, 'My Declaration of Faithful Disobedience,' circulates globally.", "cn": "王怡牧师以'煽动颠覆国家政权罪'被秘密判处九年有期徒刑。他预先写好的《我的信仰声明》在全球广泛传播。" },
+    "category": "persecution",
+    "location": "Chengdu",
+    "figure": "Wang Yi"
+  },
+  {
+    "year": 2020,
+    "title": { "en": "COVID-19 accelerates online church movement", "cn": "新冠疫情加速线上教会运动" },
+    "description": { "en": "The COVID-19 pandemic forces Chinese churches online, accelerating digital ministry. Some house churches find that online gatherings offer protection from government interference.", "cn": "新冠疫情迫使中国教会转向线上，加速了数字化事工的发展。一些家庭教会发现线上聚会在一定程度上可以减少政府干预。" },
+    "category": "contemporary",
+    "location": "China",
+    "figure": null
+  },
+  {
+    "year": 2022,
+    "title": { "en": "Vatican-China bishop agreement renewed amid controversy", "cn": "梵中主教任命协议争议中续签" },
+    "description": { "en": "The Vatican renews its controversial provisional agreement with Beijing on the appointment of bishops, despite criticism from underground Catholic communities and human rights advocates.", "cn": "梵蒂冈续签了与北京就主教任命问题达成的临时协议，尽管地下天主教团体和人权倡导者对此提出强烈批评。" },
+    "category": "contemporary",
+    "location": "Vatican / Beijing",
+    "figure": "Pope Francis"
+  },
+  {
+    "year": 2023,
+    "title": { "en": "Continued pressure on house churches nationwide", "cn": "家庭教会持续面临全国性压力" },
+    "description": { "en": "House churches across China face continued crackdowns, including forced closures, surveillance cameras in sanctuaries, mandatory facial recognition, and removal of online sermon content.", "cn": "全国各地家庭教会持续遭受打压，包括强制关闭、在聚会场所安装监控摄像头、强制人脸识别以及删除网络讲道内容。" },
+    "category": "persecution",
+    "location": "China",
+    "figure": null
+  },
+  {
+    "year": 2024,
+    "title": { "en": "Chinese diaspora churches multiply worldwide", "cn": "海外华人教会在全球快速增长" },
+    "description": { "en": "Chinese diaspora churches continue to multiply across North America, Europe, and Southeast Asia, often led by former house church leaders. The Chinese missionary movement grows, particularly in the Global South.", "cn": "海外华人教会在北美、欧洲和东南亚持续快速增长，常由前家庭教会领袖带领。华人宣教运动不断壮大，尤其在全球南方地区。" },
+    "category": "contemporary",
+    "location": "Global",
+    "figure": null
+  },
+  {
+    "year": 2025,
+    "title": { "en": "Christianity in China: estimated 80-130 million believers", "cn": "中国基督徒估计达八千万至一亿三千万" },
+    "description": { "en": "Despite decades of restrictions, Christianity continues to grow in China. Current estimates range from 80 to 130 million believers, making China home to one of the world's largest Christian populations.", "cn": "尽管经历数十年的管控限制，基督教在中国持续增长。目前估计信徒人数在八千万至一亿三千万之间，使中国成为世界上基督徒人口最多的国家之一。" },
+    "category": "contemporary",
+    "location": "China",
+    "figure": null
+  },
+  {
+    "year": 2026,
+    "title": { "en": "AI and digital tools reshape Chinese ministry landscape", "cn": "人工智能和数字工具重塑中国事工格局" },
+    "description": { "en": "AI-powered translation, digital discipleship platforms, and cross-border virtual communities create new opportunities and challenges for Chinese Christian ministry in an era of digital surveillance.", "cn": "人工智能翻译、数字门徒训练平台和跨境虚拟社区为中国基督教事工带来新的机遇与挑战，同时也面临数字监控时代的严峻考验。" },
+    "category": "contemporary",
+    "location": "China / Global",
+    "figure": null
+  }
+]
