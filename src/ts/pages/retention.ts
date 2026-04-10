@@ -67,7 +67,7 @@ function renderSliders(lang: string): string {
         <span>${f.label}</span>
         <span class="slider-value" id="${f.key}-val">${values[f.key as keyof FactorValues]}/10</span>
       </div>
-      <input type="range" class="calc-slider" id="${f.key}-slider" min="0" max="10" value="${values[f.key as keyof FactorValues]}" step="1">
+      <input type="range" class="calc-slider" id="${f.key}-slider" min="0" max="10" value="${values[f.key as keyof FactorValues]}" step="1" aria-label="${f.label}">
       <div style="display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--text-tertiary); font-family: var(--font-mono);">
         <span>0</span>
         <span>5</span>

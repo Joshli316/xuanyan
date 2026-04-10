@@ -14,10 +14,10 @@ const strings: Translations = {
   // Hero
   'hero.title': { en: 'Where Missions History Meets AI Innovation', cn: '当宣教历史遇见人工智能' },
   'hero.subtitle': {
-    en: 'A bilingual research platform connecting 1,400 years of China missions history to today\'s international student ministry — through interactive tools, AI-powered search, and data visualization.',
-    cn: '一个双语研究平台，通过交互工具、AI搜索和数据可视化，将1400年的中国宣教历史与当今留学生事工连接起来。'
+    en: 'The only bilingual research archive connecting 1,400 years of China missions history to today\'s international student ministry. 12 reports. 6 interactive tools. One searchable platform.',
+    cn: '唯一将1400年中国宣教历史与当今留学生事工连接起来的双语研究档案。12篇报告，6个交互工具，一个可搜索的平台。'
   },
-  'hero.cta.research': { en: 'Explore Research', cn: '探索研究' },
+  'hero.cta.research': { en: 'Read the Reports', cn: '阅读报告' },
   'hero.cta.tools': { en: 'Use Tools', cn: '使用工具' },
 
   // What We Offer
@@ -38,9 +38,9 @@ const strings: Translations = {
   // Audience
   'audience.title': { en: 'Who This Is For', cn: '适合人群' },
   'audience.missionaries': { en: 'Missionaries', cn: '宣教士' },
-  'audience.missionaries.desc': { en: 'Cultural intelligence and historical lessons for the field', cn: '田野服务的文化智慧与历史教训' },
+  'audience.missionaries.desc': { en: 'Learn what worked and what failed across 1,400 years — before you repeat it', cn: '了解1400年来哪些方法有效、哪些失败——避免重蹈覆辙' },
   'audience.scholars': { en: 'Scholars', cn: '学者' },
-  'audience.scholars.desc': { en: 'Bilingual bibliography and primary source search', cn: '双语文献和原始资料检索' },
+  'audience.scholars.desc': { en: 'Search primary sources in both languages without switching databases', cn: '在一个平台上用双语检索原始资料' },
   'audience.chinese': { en: 'Chinese Christians', cn: '华人基督徒' },
   'audience.chinese.desc': { en: 'Heritage exploration and returnee resources', cn: '信仰传承探索与回国资源' },
   'audience.seekers': { en: 'Non-Christians', cn: '非基督徒' },
@@ -50,7 +50,7 @@ const strings: Translations = {
   'audience.churches': { en: 'Churches', cn: '教会' },
   'audience.churches.desc': { en: 'Partnership playbooks and returnee connections', cn: '合作手册与回国者联络' },
   'audience.funders': { en: 'Funders', cn: '资助者' },
-  'audience.funders.desc': { en: 'Innovation Lab capability on display', cn: '创新实验室能力展示' },
+  'audience.funders.desc': { en: 'See what AI-powered ministry tools look like — built, not pitched', cn: '看看AI赋能的事工工具长什么样——已建成，不是PPT' },
 
   // Footer
   'footer.mission': {
@@ -65,8 +65,8 @@ const strings: Translations = {
   // Research page
   'research.title': { en: 'Research Reports', cn: '研究报告' },
   'research.subtitle': {
-    en: '12 comprehensive reports on China missions — from the Nestorian era to AI-enabled scholarship.',
-    cn: '12篇全面的中国宣教研究报告——从景教时代到AI赋能的学术研究。'
+    en: '12 in-depth reports on China missions — from the Nestorian era to AI-enabled scholarship.',
+    cn: '12篇深度中国宣教研究报告——从景教时代到AI赋能的学术研究。'
   },
   'research.filter.all': { en: 'All', cn: '全部' },
   'research.filter.history': { en: 'History', cn: '历史' },
@@ -95,7 +95,7 @@ const strings: Translations = {
   'ask.thinking': { en: 'Searching the archive...', cn: '搜索档案中...' },
 
   // Search
-  'search.placeholder': { en: 'Search reports, tools, and more...', cn: '搜索报告、工具等...' },
+  'search.placeholder': { en: 'Search reports, tools, timeline...', cn: '搜索报告、工具、时间线...' },
   'search.hint': { en: 'Press Cmd+K to search', cn: '按 Cmd+K 搜索' },
   'search.no_results': { en: 'No results found', cn: '未找到结果' },
 
@@ -207,8 +207,8 @@ const strings: Translations = {
   // About
   'about.title': { en: 'About XuanYan', cn: '关于宣研' },
   'about.p1': {
-    en: 'XuanYan (宣研) is a project of Frontier Commons Innovation Lab — a faith-based nonprofit pioneering the use of AI in international student ministry.',
-    cn: '宣研是 Frontier Commons 创新实验室的项目——一个在留学生事工中开创性使用AI的信仰非营利组织。'
+    en: 'XuanYan (宣研) is a project of Frontier Commons Innovation Lab — a faith-based nonprofit applying AI to international student ministry.',
+    cn: '宣研是 Frontier Commons 创新实验室的项目——一个将AI应用于留学生事工的信仰非营利组织。'
   },
   'about.p2': {
     en: 'The platform connects 1,400 years of missions history to practical ministry tools. Every feature is bilingual, AI-powered, and grounded in peer-reviewed research.',

@@ -13,7 +13,7 @@
 
   --color-text-primary: #E8E0D4;
   --color-text-secondary: #9B9180;
-  --color-text-tertiary: #8A7E72;
+  --color-text-tertiary: #9A8E82;
 
   --color-accent-gold: #D4A44C;
   --color-accent-gold-hover: #E8B85E;
@@ -38,7 +38,7 @@
 
   --text-primary: #E8E0D4;
   --text-secondary: #9B9180;
-  --text-tertiary: #8A7E72;
+  --text-tertiary: #9A8E82;
 
   --accent-gold: #D4A44C;
   --accent-gold-hover: #E8B85E;
@@ -741,7 +741,8 @@ button:focus-visible,
 }
 
 .filter-tab {
-  padding: 8px 16px;
+  padding: 10px 16px;
+  min-height: 44px;
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text-secondary);
@@ -867,6 +868,9 @@ button:focus-visible,
   margin: 24px 0;
   font-family: var(--font-mono);
   font-size: 0.875rem;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .report-content th,
@@ -953,7 +957,7 @@ button:focus-visible,
 .search-result {
   padding: 16px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 2px;
   transition: background var(--transition);
 }
 
@@ -1113,7 +1117,8 @@ button:focus-visible,
 }
 
 .era-btn {
-  padding: 6px 14px;
+  padding: 10px 14px;
+  min-height: 44px;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   color: var(--text-secondary);
@@ -1341,7 +1346,7 @@ button:focus-visible,
   background: var(--bg-tertiary);
   border: 1px solid var(--border);
   color: var(--text-secondary);
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.75rem;
   font-family: var(--font-mono);

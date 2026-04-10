@@ -73,8 +73,9 @@ function handleRoute(): void {
     if (home) home.render();
   }
 
-  // Scroll to top on navigation
+  // Scroll to top and move focus to main content on navigation
   window.scrollTo(0, 0);
+  document.getElementById('app')?.focus();
 
   // Update active nav link
   document.querySelectorAll('.nav-links a').forEach(a => {

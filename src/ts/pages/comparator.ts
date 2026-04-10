@@ -121,7 +121,7 @@ export function renderComparator(): void {
         <p>${t('comparator.subtitle')}</p>
       </div>
       <div class="form-group" style="max-width: 400px;">
-        <select class="form-select" id="event-select">
+        <select class="form-select" id="event-select" aria-label="${t('comparator.select')}"
           <option value="">${t('comparator.select')}</option>
           ${pairs.map(p => `<option value="${p.id}">${p.event_name[lang as 'en' | 'cn']}</option>`).join('')}
         </select>
@@ -157,7 +157,7 @@ function renderPair(pair: SourcePair): void {
         <p class="source-text">${pair.en_source.text}</p>
         <p class="attribution">— ${pair.en_source.attribution}</p>
         <p style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">${pair.en_source.context}</p>
-        <button class="btn btn-ghost" style="margin-top: 12px; font-size: 0.75rem; padding: 6px 12px;" data-translate="en">
+        <button class="btn btn-ghost" style="margin-top: 12px; font-size: 0.8125rem; padding: 10px 16px; min-height: 44px;" data-translate="en">
           ${lang === 'en' ? '翻译为中文' : 'Translate to English'}
         </button>
         <div class="translation" id="en-translation" style="display: none;"></div>
@@ -167,7 +167,7 @@ function renderPair(pair: SourcePair): void {
         <p class="source-text">${pair.cn_source.text}</p>
         <p class="attribution">— ${pair.cn_source.attribution}</p>
         <p style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">${pair.cn_source.context}</p>
-        <button class="btn btn-ghost" style="margin-top: 12px; font-size: 0.75rem; padding: 6px 12px;" data-translate="cn">
+        <button class="btn btn-ghost" style="margin-top: 12px; font-size: 0.8125rem; padding: 10px 16px; min-height: 44px;" data-translate="cn">
           ${lang === 'en' ? 'Translate to English' : '翻译为中文'}
         </button>
         <div class="translation" id="cn-translation" style="display: none;"></div>
