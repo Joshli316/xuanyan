@@ -128,7 +128,7 @@ export function renderHome(): void {
           <a href="#/research" data-i18n="nav.research">${t('nav.research')}</a>
           <a href="#/tools" data-i18n="nav.tools">${t('nav.tools')}</a>
           <a href="#/about" data-i18n="nav.about">${t('nav.about')}</a>
-          <a href="https://github.com/Joshli316/xuanyan" target="_blank" rel="noopener" data-i18n="footer.github">${t('footer.github')}</a>
+          <a href="https://github.com/Joshli316/xuanyan" target="_blank" rel="noopener" data-i18n="footer.github">GitHub</a>
         </div>
         <p class="footer-tagline" data-i18n="footer.tagline">${t('footer.tagline')}</p>
       </div>
