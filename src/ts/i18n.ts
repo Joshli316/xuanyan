@@ -65,11 +65,11 @@ const strings: Translations = {
 
   // Footer
   'footer.mission': {
-    en: 'Built by Frontier Commons Innovation Lab. We believe AI can serve the Great Commission — not replace human connection, but extend it.',
-    cn: '由 Frontier Commons 创新实验室打造。我们相信AI可以服务于大使命——不是取代人际连接，而是延伸它。'
+    en: 'We believe AI can serve the Great Commission — not replace human connection, but extend it.',
+    cn: '我们相信AI可以服务于大使命——不是取代人际连接，而是延伸它。'
   },
   'footer.tagline': { en: 'Powered by AI. Grounded in 1,400 years of history.', cn: 'AI驱动，扎根于1400年的历史。' },
-  'footer.fc': { en: 'Frontier Commons', cn: 'Frontier Commons' },
+  'footer.fc': { en: 'About', cn: '关于' },
   'footer.privacy': { en: 'Privacy', cn: '隐私政策' },
   'footer.github': { en: 'GitHub', cn: 'GitHub' },
 
@@ -218,8 +218,8 @@ const strings: Translations = {
   // About
   'about.title': { en: 'About XuanYan', cn: '关于宣研' },
   'about.p1': {
-    en: 'XuanYan (宣研) is a project of Frontier Commons Innovation Lab — a faith-based nonprofit applying AI to international student ministry.',
-    cn: '宣研是 Frontier Commons 创新实验室的项目——一个将AI应用于留学生事工的信仰非营利组织。'
+    en: 'XuanYan (宣研) is a bilingual research platform applying AI to international student ministry and China missions scholarship.',
+    cn: '宣研是一个将AI应用于留学生事工和中国宣教学术研究的双语研究平台。'
   },
   'about.p2': {
     en: 'The platform connects 1,400 years of missions history to practical ministry tools. Every feature is bilingual, AI-powered, and grounded in peer-reviewed research.',

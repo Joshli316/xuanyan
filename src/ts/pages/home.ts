@@ -110,13 +110,13 @@ export function renderHome(): void {
       <div class="container">
         <div class="editorial-header">
           <span class="section-marker">03 / <span data-i18n="section.label.lab">${t('section.label.lab')}</span></span>
-          <h2>Frontier Commons Innovation Lab</h2>
+          <h2>${getLang() === 'en' ? 'Our Mission' : '我们的使命'}</h2>
         </div>
         <div class="lab-content">
           <p class="footer-mission">${getLang() === 'en'
             ? 'We believe AI can serve the Great Commission — not replace human connection, but extend it.'
             : '我们相信AI可以服务于大使命——不是取代人际连接，而是延伸它。'}</p>
-          <a href="https://frontiercommons.org" class="btn btn-ghost" target="_blank" rel="noopener">${getLang() === 'en' ? 'Visit Our Site' : '访问官网'}</a>
+          <a href="#/about" class="btn btn-ghost">${getLang() === 'en' ? 'Learn More' : '了解更多'}</a>
         </div>
       </div>
     </section>
