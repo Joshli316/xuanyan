@@ -135,37 +135,23 @@ export function renderHome(): void {
 }
 
 function renderAudienceMosaic(): string {
-  // Featured: Chinese Christians (the audience no competitor serves directly)
-  // Layout: featured 2x2 + 5 standard cards = exactly 9 cells in a 3x3 grid (no orphans)
-  // Dropped "Non-Christians" — passive audience, not a primary user the platform serves
-  const featured = { key: 'chinese', icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' };
-  const standard = [
-    { key: 'missionaries', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' },
-    { key: 'scholars', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-    { key: 'volunteers', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
-    { key: 'churches', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
-    { key: 'funders', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
+  // Clean 3×2 grid. Chinese Christians gets gold accent (primary audience), rest standard.
+  const cards = [
+    { key: 'chinese', featured: true, icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' },
+    { key: 'missionaries', featured: false, icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' },
+    { key: 'scholars', featured: false, icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+    { key: 'volunteers', featured: false, icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+    { key: 'churches', featured: false, icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
+    { key: 'funders', featured: false, icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
   ];
 
-  const featuredCard = `
-    <a href="#/tools/returnee" class="audience-card audience-featured">
-      <div class="featured-marker">FEATURED</div>
-      <div class="icon" style="color: var(--accent-gold);">${featured.icon}</div>
-      <h4 data-i18n="audience.${featured.key}">${t(`audience.${featured.key}`)}</h4>
-      <p data-i18n="audience.${featured.key}.desc">${t(`audience.${featured.key}.desc`)}</p>
-      <span class="featured-cta">→ ${t('returnee.title')}</span>
-    </a>
-  `;
-
-  const standardCards = standard.map(a => `
-    <div class="audience-card audience-standard">
+  return cards.map(a => `
+    <div class="audience-card audience-standard${a.featured ? ' audience-accent' : ''}">
       <div class="icon" style="color: var(--accent-gold);">${a.icon}</div>
       <h4 data-i18n="audience.${a.key}">${t(`audience.${a.key}`)}</h4>
       <p data-i18n="audience.${a.key}.desc">${t(`audience.${a.key}.desc`)}</p>
     </div>
   `).join('');
-
-  return featuredCard + standardCards;
 }
 
 function renderChinaOutline(): string {
