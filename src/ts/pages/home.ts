@@ -2,6 +2,13 @@ import { t } from '../i18n';
 
 export function renderHome(): void {
   const app = document.getElementById('app')!;
+
+  // Lazy-load the China outline path (14KB) only on the home page
+  import('../data/china-outline').then(({ CHINA_PATH }) => {
+    const pathEl = document.getElementById('china-outline-path');
+    if (pathEl) pathEl.setAttribute('d', CHINA_PATH);
+  });
+
   app.innerHTML = `
     <!-- Hero -->
     <section class="hero">
@@ -158,21 +165,36 @@ function renderAudienceMosaic(): string {
 }
 
 function renderChinaOutline(): string {
-  // Simplified China outline with pulsing mission station dots
+  // Real China outline (Wikimedia Commons, public domain) + 5 historical mission cities
+  // City positions are in viewBox coordinates (1000x850)
+  const cities = [
+    { name: "Xi'an",     x: 540, y: 420, year: 635 },  // Nestorian arrival
+    { name: 'Beijing',   x: 680, y: 340, year: 1294 }, // Franciscan mission
+    { name: 'Shanghai',  x: 760, y: 460, year: 1843 }, // Treaty port
+    { name: 'Chengdu',   x: 460, y: 480, year: 1877 }, // CIM inland
+    { name: 'Guangzhou', x: 630, y: 610, year: 1807 }, // Morrison
+  ];
+
   return `
-    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M180 30 L220 25 L260 35 L290 30 L320 45 L340 40 L360 55 L370 80 L365 110 L355 130 L360 155 L350 175 L330 190 L310 200 L290 220 L270 235 L250 250 L230 260 L210 255 L190 260 L170 250 L150 240 L130 225 L110 210 L95 195 L80 175 L70 155 L65 130 L70 110 L80 90 L95 75 L110 60 L130 45 L155 35 Z"
-        stroke="#D4A44C" stroke-width="1" opacity="0.3" fill="none"/>
-      <!-- Taiwan -->
-      <path d="M330 200 L335 210 L332 225 L325 215 Z" stroke="#D4A44C" stroke-width="0.5" opacity="0.2" fill="none"/>
-      <!-- Hainan -->
-      <path d="M220 255 L230 260 L225 270 L215 265 Z" stroke="#D4A44C" stroke-width="0.5" opacity="0.2" fill="none"/>
+    <svg viewBox="0 0 1000 850" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+      <!-- China outline path — populated via lazy import in renderHome -->
+      <path id="china-outline-path" d="" stroke="#D4A44C" stroke-width="3" opacity="0.5" fill="none" stroke-linejoin="round"/>
+
+      ${cities.map((c, i) => `
+        <!-- ${c.name} marker -->
+        <g class="city-marker" style="animation-delay: ${i * 0.4}s;">
+          <!-- Crosshair lines -->
+          <line x1="${c.x - 28}" y1="${c.y}" x2="${c.x - 12}" y2="${c.y}" stroke="#D4A44C" stroke-width="2" opacity="0.6"/>
+          <line x1="${c.x + 12}" y1="${c.y}" x2="${c.x + 28}" y2="${c.y}" stroke="#D4A44C" stroke-width="2" opacity="0.6"/>
+          <line x1="${c.x}" y1="${c.y - 28}" x2="${c.x}" y2="${c.y - 12}" stroke="#D4A44C" stroke-width="2" opacity="0.6"/>
+          <line x1="${c.x}" y1="${c.y + 12}" x2="${c.x}" y2="${c.y + 28}" stroke="#D4A44C" stroke-width="2" opacity="0.6"/>
+          <!-- Sharp square marker (matches the editorial 0-radius design language) -->
+          <rect x="${c.x - 8}" y="${c.y - 8}" width="16" height="16" fill="#D4A44C"/>
+          <!-- City label in mono -->
+          <text x="${c.x + 36}" y="${c.y + 4}" font-family="JetBrains Mono, monospace" font-size="22" font-weight="500" fill="#E8E0D4" letter-spacing="1">${c.name}</text>
+          <text x="${c.x + 36}" y="${c.y + 30}" font-family="JetBrains Mono, monospace" font-size="18" fill="#D4A44C" letter-spacing="2">${c.year}</text>
+        </g>
+      `).join('')}
     </svg>
-    <!-- Mission station pulsing dots -->
-    <div class="pulse-dot" style="top: 28%; left: 72%; animation-delay: 0s;"></div>
-    <div class="pulse-dot" style="top: 38%; left: 82%; animation-delay: 0.7s;"></div>
-    <div class="pulse-dot" style="top: 55%; left: 88%; animation-delay: 1.4s;"></div>
-    <div class="pulse-dot" style="top: 65%; left: 72%; animation-delay: 2.1s;"></div>
-    <div class="pulse-dot" style="top: 50%; left: 60%; animation-delay: 0.3s;"></div>
   `;
 }

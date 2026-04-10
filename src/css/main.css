@@ -432,58 +432,48 @@ button:focus-visible,
   flex-wrap: wrap;
 }
 
-/* Hero animation — China outline with pulsing dots */
+/* Hero visual — real China outline with sharp city markers */
 .hero-visual {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 1000/850;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .hero-visual {
+    max-width: none;
+  }
 }
 
 .hero-visual svg {
   width: 100%;
   height: 100%;
-  opacity: 0.6;
 }
 
-.pulse-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--accent-gold);
-  border-radius: 50%;
-  animation: pulse 3s ease-in-out infinite;
+/* City markers fade in sequentially — no rounded pulses */
+.city-marker {
+  opacity: 0;
+  animation: city-fade-in 1.2s ease-out forwards;
 }
 
-.pulse-dot::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border: 1px solid var(--accent-gold);
-  border-radius: 50%;
-  animation: pulse-ring 3s ease-in-out infinite;
+@keyframes city-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+.city-marker rect {
+  animation: marker-glow 4s ease-in-out infinite;
 }
 
-@keyframes pulse-ring {
-  0%, 100% { opacity: 0; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(2.5); }
+@keyframes marker-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
-
-/* Stagger pulse dots */
-.pulse-dot:nth-child(2) { animation-delay: 0.5s; }
-.pulse-dot:nth-child(2)::after { animation-delay: 0.5s; }
-.pulse-dot:nth-child(3) { animation-delay: 1s; }
-.pulse-dot:nth-child(3)::after { animation-delay: 1s; }
-.pulse-dot:nth-child(4) { animation-delay: 1.5s; }
-.pulse-dot:nth-child(4)::after { animation-delay: 1.5s; }
-.pulse-dot:nth-child(5) { animation-delay: 2s; }
-.pulse-dot:nth-child(5)::after { animation-delay: 2s; }
 
 /* =========================================
    Sections
