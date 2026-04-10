@@ -20,6 +20,17 @@ const strings: Translations = {
   'hero.cta.research': { en: 'Read the Reports', cn: '阅读报告' },
   'hero.cta.tools': { en: 'Use Tools', cn: '使用工具' },
 
+  // Stat band
+  'stats.years': { en: 'Years of History', cn: '年的历史' },
+  'stats.reports': { en: 'Research Reports', cn: '研究报告' },
+  'stats.stations': { en: 'Mission Stations Mapped', cn: '已绘制宣教站' },
+  'stats.personas': { en: 'Historical Personas', cn: '历史人物' },
+
+  // Section labels (editorial markers)
+  'section.label.offer': { en: 'OFFER', cn: '提供' },
+  'section.label.audience': { en: 'AUDIENCE', cn: '受众' },
+  'section.label.lab': { en: 'LAB', cn: '实验室' },
+
   // What We Offer
   'offer.title': { en: 'What We Offer', cn: '我们提供什么' },
   'offer.subtitle': {

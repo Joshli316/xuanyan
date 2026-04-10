@@ -22,12 +22,37 @@ export function renderHome(): void {
       </div>
     </section>
 
-    <!-- What We Offer -->
-    <section class="section">
+    <!-- Stat Band -->
+    <section class="stat-band">
       <div class="container">
-        <div class="section-title">
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-num">1,400</div>
+            <div class="stat-label" data-i18n="stats.years">${t('stats.years')}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">12</div>
+            <div class="stat-label" data-i18n="stats.reports">${t('stats.reports')}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">277</div>
+            <div class="stat-label" data-i18n="stats.stations">${t('stats.stations')}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">12</div>
+            <div class="stat-label" data-i18n="stats.personas">${t('stats.personas')}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 / OFFER -->
+    <section class="section editorial-section">
+      <div class="container">
+        <div class="editorial-header">
+          <span class="section-marker">01 / <span data-i18n="section.label.offer">${t('section.label.offer')}</span></span>
           <h2 data-i18n="offer.title">${t('offer.title')}</h2>
-          <p data-i18n="offer.subtitle">${t('offer.subtitle')}</p>
+          <p class="editorial-sub" data-i18n="offer.subtitle">${t('offer.subtitle')}</p>
         </div>
         <div class="offer-grid">
           <div class="offer-card">
@@ -56,24 +81,30 @@ export function renderHome(): void {
       </div>
     </section>
 
-    <!-- Audience -->
-    <section class="section">
+    <!-- 02 / AUDIENCE -->
+    <section class="section editorial-section">
       <div class="container">
-        <div class="section-title">
+        <div class="editorial-header">
+          <span class="section-marker">02 / <span data-i18n="section.label.audience">${t('section.label.audience')}</span></span>
           <h2 data-i18n="audience.title">${t('audience.title')}</h2>
         </div>
-        <div class="audience-scroll">
-          ${renderAudienceCards()}
+        <div class="audience-mosaic">
+          ${renderAudienceMosaic()}
         </div>
       </div>
     </section>
 
-    <!-- Built by FC -->
-    <section class="section" style="border-top: 1px solid var(--border);">
-      <div class="container" style="max-width: 720px; text-align: center;">
-        <h2 style="margin-bottom: 16px;">Frontier Commons Innovation Lab</h2>
-        <p class="footer-mission" data-i18n="footer.mission">${t('footer.mission')}</p>
-        <a href="https://frontiercommons.org" class="btn btn-ghost" target="_blank" rel="noopener" data-i18n="footer.fc">${t('footer.fc')}</a>
+    <!-- 03 / LAB -->
+    <section class="section editorial-section" style="border-top: 1px solid var(--border);">
+      <div class="container">
+        <div class="editorial-header">
+          <span class="section-marker">03 / <span data-i18n="section.label.lab">${t('section.label.lab')}</span></span>
+          <h2>Frontier Commons Innovation Lab</h2>
+        </div>
+        <div class="lab-content">
+          <p class="footer-mission" data-i18n="footer.mission">${t('footer.mission')}</p>
+          <a href="https://frontiercommons.org" class="btn btn-ghost" target="_blank" rel="noopener" data-i18n="footer.fc">${t('footer.fc')}</a>
+        </div>
       </div>
     </section>
 
@@ -84,7 +115,7 @@ export function renderHome(): void {
           <a href="#/research" data-i18n="nav.research">${t('nav.research')}</a>
           <a href="#/tools" data-i18n="nav.tools">${t('nav.tools')}</a>
           <a href="#/about" data-i18n="nav.about">${t('nav.about')}</a>
-          <a href="https://github.com/zhihuang-ai/xuanyan" target="_blank" rel="noopener" data-i18n="footer.github">${t('footer.github')}</a>
+          <a href="https://github.com/Joshli316/xuanyan" target="_blank" rel="noopener" data-i18n="footer.github">${t('footer.github')}</a>
         </div>
         <p class="footer-tagline" data-i18n="footer.tagline">${t('footer.tagline')}</p>
       </div>
@@ -92,24 +123,38 @@ export function renderHome(): void {
   `;
 }
 
-function renderAudienceCards(): string {
-  const audiences = [
-    { key: 'missionaries', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' },
-    { key: 'scholars', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-    { key: 'chinese', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' },
-    { key: 'seekers', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>' },
-    { key: 'volunteers', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
-    { key: 'churches', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
-    { key: 'funders', icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
+function renderAudienceMosaic(): string {
+  // Featured: Chinese Christians (the audience no competitor serves directly)
+  // Mosaic layout: 1 featured + 6 standard, broken across 3 columns
+  const featured = { key: 'chinese', icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' };
+  const standard = [
+    { key: 'missionaries', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' },
+    { key: 'scholars', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+    { key: 'seekers', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>' },
+    { key: 'volunteers', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+    { key: 'churches', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
+    { key: 'funders', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
   ];
 
-  return audiences.map(a => `
-    <div class="audience-card">
+  const featuredCard = `
+    <a href="#/tools/returnee" class="audience-card audience-featured">
+      <div class="featured-marker">FEATURED</div>
+      <div class="icon" style="color: var(--accent-gold);">${featured.icon}</div>
+      <h4 data-i18n="audience.${featured.key}">${t(`audience.${featured.key}`)}</h4>
+      <p data-i18n="audience.${featured.key}.desc">${t(`audience.${featured.key}.desc`)}</p>
+      <span class="featured-cta">→ ${t('returnee.title')}</span>
+    </a>
+  `;
+
+  const standardCards = standard.map(a => `
+    <div class="audience-card audience-standard">
       <div class="icon" style="color: var(--accent-gold);">${a.icon}</div>
       <h4 data-i18n="audience.${a.key}">${t(`audience.${a.key}`)}</h4>
       <p data-i18n="audience.${a.key}.desc">${t(`audience.${a.key}.desc`)}</p>
     </div>
   `).join('');
+
+  return featuredCard + standardCards;
 }
 
 function renderChinaOutline(): string {
@@ -124,10 +169,10 @@ function renderChinaOutline(): string {
       <path d="M220 255 L230 260 L225 270 L215 265 Z" stroke="#D4A44C" stroke-width="0.5" opacity="0.2" fill="none"/>
     </svg>
     <!-- Mission station pulsing dots -->
-    <div class="pulse-dot" style="top: 28%; left: 72%; animation-delay: 0s;"></div>    <!-- Xi'an -->
-    <div class="pulse-dot" style="top: 38%; left: 82%; animation-delay: 0.7s;"></div>  <!-- Beijing -->
-    <div class="pulse-dot" style="top: 55%; left: 88%; animation-delay: 1.4s;"></div>  <!-- Shanghai -->
-    <div class="pulse-dot" style="top: 65%; left: 72%; animation-delay: 2.1s;"></div>  <!-- Guangzhou -->
-    <div class="pulse-dot" style="top: 50%; left: 60%; animation-delay: 0.3s;"></div>  <!-- Chengdu -->
+    <div class="pulse-dot" style="top: 28%; left: 72%; animation-delay: 0s;"></div>
+    <div class="pulse-dot" style="top: 38%; left: 82%; animation-delay: 0.7s;"></div>
+    <div class="pulse-dot" style="top: 55%; left: 88%; animation-delay: 1.4s;"></div>
+    <div class="pulse-dot" style="top: 65%; left: 72%; animation-delay: 2.1s;"></div>
+    <div class="pulse-dot" style="top: 50%; left: 60%; animation-delay: 0.3s;"></div>
   `;
 }
