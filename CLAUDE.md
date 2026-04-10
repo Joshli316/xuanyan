@@ -11,25 +11,27 @@ A bilingual (EN/CN), AI-powered research platform connecting 1,400 years of Chin
 ## Structure
 ```
 src/
-  index.html          — Homepage
-  css/
-    main.css          — Tailwind + custom CSS vars
+  index.html          — Shell HTML (nav, search modal, app container)
+  css/main.css        — Tailwind + CSS custom properties (design tokens)
   ts/
-    main.ts           — App init, router, language toggle
-    i18n.ts           — Bilingual string management
-    timeline.ts       — Animated timeline component
-    search.ts         — Full-text search across reports
-  pages/
-    research/         — 12 research report pages
-    tools/            — Interactive tool pages
-    about/            — FC Innovation Lab story
+    app.ts            — Route registration, entry point
+    main.ts           — Hash router, language toggle, nav
+    i18n.ts           — Bilingual string system (t() function)
+    search.ts         — Full-text search with debounce
+    data-loader.ts    — Static report imports + lazy loaders for heavy data
+    chat-ui.ts        — Shared chat infrastructure (used by Ask Archive + Personas)
+    pages/            — One file per route (home, research, timeline, map, etc.)
   data/
-    reports/          — Report content as JSON (EN + CN)
-    timeline.json     — Timeline events data
-  assets/
-    fonts/            — Noto Serif SC + Inter
-    img/              — Ink-wash textures, portraits
-dist/                 — Built output
+    reports/*.json    — 12 research reports (bilingual JSON)
+    personas/*.json   — 12 persona excerpt corpora (20-25 each)
+    timeline.json     — 71 timeline events
+    map-data.json     — 277 geocoded mission stations
+    archive-index.json — Pre-built search index (141 chunks)
+functions/
+  api/ask.ts          — CF Workers proxy for Claude API
+public/               — Static files (sw.js, manifest, robots.txt, 404, og-image)
+tests/smoke.spec.ts   — 8 Playwright E2E tests
+dist/                 — Built output (wrangler pages deploy dist/)
 ```
 
 ## Entry Point
