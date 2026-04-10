@@ -57,8 +57,6 @@ const AI_LABELS: Record<string, { en: string; cn: string }> = {
   no: { en: 'Not AI Feasible', cn: 'AI不可行' },
 };
 
-let selectedGap: Gap | null = null;
-
 export function renderGaps(): void {
   const app = document.getElementById('app')!;
   const lang = getLang();

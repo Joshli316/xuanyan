@@ -67,7 +67,7 @@ export function renderTimeline(): void {
   `;
 
   loadTimeline().then(events => {
-    renderEvents(events, 'all');
+    renderEvents(events);
 
     // Filter by category
     document.querySelectorAll('.filter-tabs .filter-tab').forEach(btn => {
@@ -76,7 +76,7 @@ export function renderTimeline(): void {
         btn.classList.add('active');
         const cat = (btn as HTMLElement).dataset.cat || 'all';
         const filtered = cat === 'all' ? events : events.filter(e => e.category === cat);
-        renderEvents(filtered, cat);
+        renderEvents(filtered);
       });
     });
 
@@ -107,7 +107,7 @@ export function renderTimeline(): void {
   });
 }
 
-function renderEvents(events: TimelineEvent[], _filter: string): void {
+function renderEvents(events: TimelineEvent[]): void {
   const lang = getLang();
   const line = document.getElementById('timeline-line');
   if (!line) return;

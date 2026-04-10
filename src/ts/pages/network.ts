@@ -25,9 +25,7 @@ interface NetworkData {
 
 let simulation: any = null;
 
-function loadNetworkData(): NetworkData {
-  return getDefaultNetwork();
-}
+// Network data loaded directly — no external JSON file, all inline
 
 function getDefaultNetwork(): NetworkData {
   const nodes: NetworkNode[] = [
@@ -103,7 +101,7 @@ export function renderNetwork(): void {
     </div>
   `;
 
-  const networkData = loadNetworkData();
+  const networkData = getDefaultNetwork();
   // Mobile: show list view instead of canvas graph
   if (window.innerWidth < 768) {
     renderMobileList(networkData, lang);
@@ -283,7 +281,6 @@ function initForceGraph(data: NetworkData): void {
   // Animation loop — stops after stabilization to save CPU
   let running = true;
   let frame = 0;
-  let needsRedraw = false;
   function animate(): void {
     if (!running) return;
     if (frame < 300) {

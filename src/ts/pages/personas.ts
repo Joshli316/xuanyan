@@ -1,6 +1,7 @@
 import { t, getLang } from '../i18n';
 import { getRouteParam, navigate } from '../main';
 import { loadPersona } from '../data-loader';
+import { formatResponse, scoreExcerpts, renderChatShell, wireChat, addUserMessage, showLoading, hideLoading, addAssistantMessage } from '../chat-ui';
 
 interface Persona {
   id: string;
@@ -294,62 +295,43 @@ export function renderPersonaChat(): void {
   const app = document.getElementById('app')!;
   const lang = getLang();
 
-  app.innerHTML = `
-    <div class="chat-container container">
-      <div class="chat-header">
-        <p><a href="#/tools/conversations" style="font-size: 0.8125rem; color: var(--text-tertiary);">← ${t('common.back')}</a></p>
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span style="font-size: 2rem;">${persona.avatar}</span>
-          <div>
-            <h2 style="font-size: 1.25rem; margin: 0;">${persona.name[lang]}</h2>
-            <p style="font-size: 0.8125rem; color: var(--text-secondary); margin: 0;">${persona.role[lang]} · ${persona.dates}</p>
-          </div>
+  app.innerHTML = renderChatShell({
+    backHref: '#/tools/conversations',
+    backLabel: t('common.back'),
+    title: persona.name[lang],
+    subtitle: `${persona.role[lang]} · ${persona.dates}`,
+    headerExtra: `
+      <p><a href="#/tools/conversations" style="font-size: 0.8125rem; color: var(--text-tertiary);">← ${t('common.back')}</a></p>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-size: 2rem;">${persona.avatar}</span>
+        <div>
+          <h2 style="font-size: 1.25rem; margin: 0;">${persona.name[lang]}</h2>
+          <p style="font-size: 0.8125rem; color: var(--text-secondary); margin: 0;">${persona.role[lang]} · ${persona.dates}</p>
         </div>
       </div>
-      <div class="chat-messages" id="chat-messages">
-        <div class="starter-chips" id="starter-chips">
-          ${(persona.starters[lang as 'en' | 'cn'] || persona.starters.en).map(q => `
-            <button class="starter-chip">${q}</button>
-          `).join('')}
-        </div>
-      </div>
-      <div class="chat-input-area">
-        <textarea class="chat-input" id="chat-input" rows="1" placeholder="${lang === 'en' ? `Ask ${persona.name.en} anything...` : `向${persona.name.cn}提问...`}"></textarea>
-        <button class="chat-send" id="chat-send">${t('ask.send')}</button>
-      </div>
-    </div>
-  `;
+    `,
+    placeholder: lang === 'en' ? `Ask ${persona.name.en} anything...` : `向${persona.name.cn}提问...`,
+    sendLabel: t('ask.send'),
+    starterChips: persona.starters[lang as 'en' | 'cn'] || persona.starters.en,
+  });
 
-  const input = document.getElementById('chat-input') as HTMLTextAreaElement;
   const sendBtn = document.getElementById('chat-send') as HTMLButtonElement;
-  const messagesDiv = document.getElementById('chat-messages')!;
 
-  async function sendMessage(text: string): Promise<void> {
-    document.getElementById('starter-chips')?.remove();
+  async function getExcerpts(personaId: string, fallbackExcerpts: { text: string; source: string; year: number }[]): Promise<{ text: string; source: string; year: number }[]> {
+    const corpus = await loadPersona(personaId);
+    return corpus
+      ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
+      : fallbackExcerpts;
+  }
 
-    messagesDiv.innerHTML += `<div class="chat-message user">${escapeHtml(text)}</div>`;
-    messagesDiv.innerHTML += `<div class="chat-message assistant" id="loading-msg"><span class="spinner"></span> ${persona!.name[lang]} ${lang === 'en' ? 'is thinking...' : '正在思考...'}</div>`;
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  wireChat(async (text) => {
+    addUserMessage(text);
+    showLoading(`${persona!.name[lang]} ${lang === 'en' ? 'is thinking...' : '正在思考...'}`);
     sendBtn.disabled = true;
 
-    // Find relevant excerpts — use rich corpus if available, fall back to inline
-    const corpus = await loadPersona(persona!.id);
-    const allExcerpts = corpus
-      ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
-      : persona!.excerpts;
-
-    // Simple relevance: find excerpts that share words with the query
-    const queryWords = text.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-    const scored = allExcerpts.map(e => {
-      const t = e.text.toLowerCase();
-      const score = queryWords.reduce((s, w) => s + (t.includes(w) ? 1 : 0), 0);
-      return { ...e, score };
-    }).sort((a, b) => b.score - a.score);
-    const topExcerpts = scored.slice(0, 5);
-
-    const relevantExcerpts = topExcerpts.map(e =>
-      `[${e.source}, ${e.year}]: "${e.text}"`
-    ).join('\n');
+    const allExcerpts = await getExcerpts(persona!.id, persona!.excerpts);
+    const topExcerpts = scoreExcerpts(allExcerpts, text, 5);
+    const relevantExcerpts = topExcerpts.map(e => `[${e.source}, ${e.year}]: "${e.text}"`).join('\n');
 
     const systemPrompt = persona!.systemPrompt[lang as 'en' | 'cn'] +
       `\n\nYour known source excerpts:\n${relevantExcerpts}\n\nAlways cite sources when drawing from these excerpts. If asked about something not in your sources, say honestly that you don't have information about that.`;
@@ -361,68 +343,26 @@ export function renderPersonaChat(): void {
         body: JSON.stringify({ system: systemPrompt, user: text }),
       });
 
-      document.getElementById('loading-msg')?.remove();
-
+      hideLoading();
       if (response.ok) {
         const data = await response.json();
-        const answer = data.response || data.content?.[0]?.text || '';
-        messagesDiv.innerHTML += `<div class="chat-message assistant">${formatResponse(answer)}</div>`;
+        addAssistantMessage(formatResponse(data.response || data.content?.[0]?.text || ''));
       } else {
-        // Fallback: generate from excerpts
-        const fallback = await generateFallback(persona!, text, lang);
-        messagesDiv.innerHTML += `<div class="chat-message assistant">${fallback}</div>`;
+        addAssistantMessage(buildFallback(persona!, allExcerpts, text, lang));
       }
     } catch {
-      document.getElementById('loading-msg')?.remove();
-      const fallback = await generateFallback(persona!, text, lang);
-      messagesDiv.innerHTML += `<div class="chat-message assistant">${fallback}</div>`;
+      hideLoading();
+      addAssistantMessage(buildFallback(persona!, allExcerpts, text, lang));
     }
 
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
     sendBtn.disabled = false;
-    input.focus();
-  }
-
-  sendBtn.addEventListener('click', () => {
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    sendMessage(text);
-  });
-
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendBtn.click();
-    }
-  });
-
-  input.addEventListener('input', () => {
-    input.style.height = 'auto';
-    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
-  });
-
-  document.querySelectorAll('.starter-chip').forEach(chip => {
-    chip.addEventListener('click', () => sendMessage(chip.textContent!.trim()));
+    (document.getElementById('chat-input') as HTMLTextAreaElement)?.focus();
   });
 }
 
-async function generateFallback(persona: Persona, question: string, lang: string): Promise<string> {
-  // Use rich corpus if available
-  const corpus = await loadPersona(persona.id);
-  const allExcerpts = corpus
-    ? corpus.excerpts.map(e => ({ text: e.text, source: e.source_title, year: e.source_year }))
-    : persona.excerpts;
-
-  // Find most relevant excerpts
-  const queryWords = question.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-  const scored = allExcerpts.map(e => {
-    const t = e.text.toLowerCase();
-    const score = queryWords.reduce((s, w) => s + (t.includes(w) ? 1 : 0), 0);
-    return { ...e, score };
-  }).sort((a, b) => b.score - a.score);
-  const top = scored.slice(0, 3);
-
+// Build fallback from excerpts when API is unavailable (no extra async fetch — reuses already-loaded excerpts)
+function buildFallback(persona: Persona, allExcerpts: { text: string; source: string; year: number }[], question: string, lang: string): string {
+  const top = scoreExcerpts(allExcerpts, question, 3);
   const excerptHtml = top.map(e =>
     `<p><em>"${e.text}"</em><br><span style="font-size: 0.75rem; color: var(--text-tertiary);">— ${e.source}, ${e.year}</span></p>`
   ).join('');
@@ -435,17 +375,4 @@ async function generateFallback(persona: Persona, question: string, lang: string
     : '<p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">Note: AI service temporarily unavailable. Showing known source excerpts.</p>';
 
   return prefix + excerptHtml + suffix;
-}
-
-function escapeHtml(text: string): string {
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function formatResponse(text: string): string {
-  // Sanitize AI response then apply safe markdown transforms
-  return text
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n\n/g, '<br><br>')
-    .replace(/\n/g, '<br>');
 }

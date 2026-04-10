@@ -41,7 +41,7 @@ export function renderResearchList(): void {
   `;
 
   const reports = loadReports();
-  renderGrid(reports, 'All');
+  renderGrid(reports);
 
   document.getElementById('filter-tabs')!.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest('.filter-tab') as HTMLElement;
@@ -50,11 +50,11 @@ export function renderResearchList(): void {
     btn.classList.add('active');
     const filter = btn.dataset.filter || 'All';
     const filtered = filter === 'All' ? reports : reports.filter(r => r.tags.includes(filter));
-    renderGrid(filtered, filter);
+    renderGrid(filtered);
   });
 }
 
-function renderGrid(reports: Report[], _filter: string): void {
+function renderGrid(reports: Report[]): void {
   const lang = getLang();
   const grid = document.getElementById('report-grid');
   if (!grid) return;

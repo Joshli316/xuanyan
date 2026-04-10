@@ -1,5 +1,6 @@
 import { t, getLang } from '../i18n';
 import { reports as allReports } from '../data-loader';
+import { formatResponse, renderChatShell, wireChat, addUserMessage, showLoading, hideLoading, addAssistantMessage } from '../chat-ui';
 
 interface ArchiveChunk {
   reportId: string;
@@ -180,110 +181,40 @@ export function renderAskArchive(): void {
   const app = document.getElementById('app')!;
   const lang = getLang();
 
-  app.innerHTML = `
-    <div class="chat-container container">
-      <div class="chat-header">
-        <h2 data-i18n="ask.title">${t('ask.title')}</h2>
-        <p style="color: var(--text-secondary); font-size: 0.875rem;" data-i18n="ask.subtitle">${t('ask.subtitle')}</p>
-      </div>
-      <div class="chat-messages" id="chat-messages">
-        <div class="starter-chips" id="starter-chips">
-          ${(STARTER_QUESTIONS[lang as 'en' | 'cn'] || STARTER_QUESTIONS.en).map(q => `
-            <button class="starter-chip">${q}</button>
-          `).join('')}
-        </div>
-      </div>
-      <div class="chat-input-area">
-        <textarea class="chat-input" id="chat-input" rows="1" data-i18n-placeholder="ask.placeholder" placeholder="${t('ask.placeholder')}"></textarea>
-        <button class="chat-send" id="chat-send" data-i18n="ask.send">${t('ask.send')}</button>
-      </div>
-    </div>
-  `;
+  // Reset chat history on re-render (prevents stale accumulation)
+  chatHistory.length = 0;
 
-  const input = document.getElementById('chat-input') as HTMLTextAreaElement;
+  app.innerHTML = renderChatShell({
+    title: t('ask.title'),
+    subtitle: t('ask.subtitle'),
+    placeholder: t('ask.placeholder'),
+    sendLabel: t('ask.send'),
+    starterChips: STARTER_QUESTIONS[lang as 'en' | 'cn'] || STARTER_QUESTIONS.en,
+  });
+
   const sendBtn = document.getElementById('chat-send') as HTMLButtonElement;
-  const messagesDiv = document.getElementById('chat-messages')!;
 
-  async function sendMessage(text: string): Promise<void> {
-    // Remove starter chips
-    const chips = document.getElementById('starter-chips');
-    if (chips) chips.remove();
-
-    // Add user message
+  wireChat(async (text) => {
+    addUserMessage(text);
     chatHistory.push({ role: 'user', content: text });
-    messagesDiv.innerHTML += `<div class="chat-message user">${escapeHtml(text)}</div>`;
-
-    // Show loading
-    messagesDiv.innerHTML += `<div class="chat-message assistant" id="loading-msg"><span class="spinner"></span> ${t('ask.thinking')}</div>`;
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    showLoading(t('ask.thinking'));
     sendBtn.disabled = true;
 
-    // Query
     const response = await queryArchive(text);
     chatHistory.push(response);
 
-    // Remove loading, add response
-    document.getElementById('loading-msg')?.remove();
+    hideLoading();
     const citationsHtml = response.citations?.map(c =>
       `<a class="citation" href="#/research/${c.reportId}">[Report ${c.reportId}]</a>`
     ).join(' ') || '';
 
-    messagesDiv.innerHTML += `
-      <div class="chat-message assistant">
-        ${formatResponse(response.content)}
-        ${citationsHtml ? `<div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border);">${citationsHtml}</div>` : ''}
-      </div>
-    `;
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    const responseHtml = formatResponse(response.content, true) +
+      (citationsHtml ? `<div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border);">${citationsHtml}</div>` : '');
+    addAssistantMessage(responseHtml);
+
     sendBtn.disabled = false;
-    input.focus();
-  }
-
-  sendBtn.addEventListener('click', () => {
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    sendMessage(text);
+    (document.getElementById('chat-input') as HTMLTextAreaElement)?.focus();
   });
 
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendBtn.click();
-    }
-  });
-
-  // Auto-resize textarea
-  input.addEventListener('input', () => {
-    input.style.height = 'auto';
-    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
-  });
-
-  // Starter chips
-  document.querySelectorAll('.starter-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      sendMessage(chip.textContent!.trim());
-    });
-  });
-
-  // Load index in background
   loadArchiveIndex();
-}
-
-function escapeHtml(text: string): string {
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function sanitizeHtml(text: string): string {
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function formatResponse(text: string): string {
-  // Sanitize first, then apply safe markdown transforms
-  return sanitizeHtml(text)
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[Report (\d+) — ([^\]]+)\]/g, '<a class="citation" href="#/research/$1">[Report $1 — $2]</a>')
-    .replace(/\[Report (\d+)\s*-\s*([^\]]+)\]/g, '<a class="citation" href="#/research/$1">[Report $1 — $2]</a>')
-    .replace(/\n\n/g, '<br><br>')
-    .replace(/\n/g, '<br>');
 }

@@ -38,7 +38,7 @@ async function loadMapData(): Promise<MapPoint[]> {
   try {
     const data = await loadMapDataAsync();
     if (data && (data as MapPoint[]).length > 0) return data as MapPoint[];
-  } catch { /* fall through */ }
+  } catch (e) { console.warn('Map data load failed, using defaults:', e); }
   return getDefaultMapData();
 }
 
