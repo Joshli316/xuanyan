@@ -54,17 +54,19 @@ export function renderHome(): void {
     </section>
 
     <!-- 01 / OFFER -->
-    <section class="section editorial-section">
+    <section class="section editorial-section section-offer">
       <div class="container">
         <div class="editorial-header">
           <span class="section-marker">01 / <span data-i18n="section.label.offer">${t('section.label.offer')}</span></span>
           <h2 data-i18n="offer.title">${t('offer.title')}</h2>
           <p class="editorial-sub" data-i18n="offer.subtitle">${t('offer.subtitle')}</p>
         </div>
-        <div class="offer-grid">
-          <div class="offer-card">
+        <div class="offer-asymmetric">
+          <div class="offer-card offer-featured">
+            <div class="offer-marker">PRIMARY</div>
+            <div class="offer-stat">12<span class="offer-stat-label">REPORTS</span></div>
             <h3>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
               <span data-i18n="offer.observatory">${t('offer.observatory')}</span>
             </h3>
             <ul>
@@ -72,10 +74,11 @@ export function renderHome(): void {
               <li data-i18n="offer.observatory.2">${t('offer.observatory.2')}</li>
               <li data-i18n="offer.observatory.3">${t('offer.observatory.3')}</li>
             </ul>
+            <a href="#/research" class="offer-cta">→ Browse Research</a>
           </div>
-          <div class="offer-card">
+          <div class="offer-card offer-companion">
             <h3>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               <span data-i18n="offer.tools">${t('offer.tools')}</span>
             </h3>
             <ul>
@@ -83,13 +86,14 @@ export function renderHome(): void {
               <li data-i18n="offer.tools.2">${t('offer.tools.2')}</li>
               <li data-i18n="offer.tools.3">${t('offer.tools.3')}</li>
             </ul>
+            <a href="#/tools" class="offer-cta">→ Open Tools</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 02 / AUDIENCE -->
-    <section class="section editorial-section">
+    <section class="section editorial-section section-audience">
       <div class="container">
         <div class="editorial-header">
           <span class="section-marker">02 / <span data-i18n="section.label.audience">${t('section.label.audience')}</span></span>
@@ -102,7 +106,7 @@ export function renderHome(): void {
     </section>
 
     <!-- 03 / LAB -->
-    <section class="section editorial-section" style="border-top: 1px solid var(--border);">
+    <section class="section editorial-section section-lab">
       <div class="container">
         <div class="editorial-header">
           <span class="section-marker">03 / <span data-i18n="section.label.lab">${t('section.label.lab')}</span></span>
@@ -132,12 +136,12 @@ export function renderHome(): void {
 
 function renderAudienceMosaic(): string {
   // Featured: Chinese Christians (the audience no competitor serves directly)
-  // Mosaic layout: 1 featured + 6 standard, broken across 3 columns
+  // Layout: featured 2x2 + 5 standard cards = exactly 9 cells in a 3x3 grid (no orphans)
+  // Dropped "Non-Christians" — passive audience, not a primary user the platform serves
   const featured = { key: 'chinese', icon: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>' };
   const standard = [
     { key: 'missionaries', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' },
     { key: 'scholars', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-    { key: 'seekers', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>' },
     { key: 'volunteers', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
     { key: 'churches', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' },
     { key: 'funders', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' },
