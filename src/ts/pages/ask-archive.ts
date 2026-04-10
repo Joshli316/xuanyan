@@ -101,80 +101,42 @@ function searchArchive(query: string, topK: number = 5): ArchiveChunk[] {
     .map(s => s.chunk);
 }
 
-async function queryArchive(question: string): Promise<ChatMessage> {
+function queryArchive(question: string): ChatMessage {
   loadArchiveIndex();
   const lang = getLang();
-
   const relevantChunks = searchArchive(question);
 
   if (relevantChunks.length === 0) {
     return {
       role: 'assistant',
       content: lang === 'en'
-        ? 'I couldn\'t find relevant information in the archive for this question. Try rephrasing or asking about a specific topic in China missions history.'
-        : '我在档案中没有找到与此问题相关的信息。请尝试重新措辞或询问中国宣教历史中的具体话题。',
+        ? 'No matching results in the archive. Try rephrasing — for example, ask about a specific person, era, or event in China missions history.'
+        : '档案中没有匹配的结果。请尝试换个问法——例如，询问中国宣教历史中的具体人物、时代或事件。',
     };
   }
 
-  const context = relevantChunks.map((c, i) =>
-    `[Source ${i + 1}: Report ${c.reportId} - ${c.section}]\n${c.text}`
+  // Build a structured answer from the top matching archive chunks
+  const header = lang === 'en'
+    ? `Found ${relevantChunks.length} relevant passage${relevantChunks.length > 1 ? 's' : ''} from the research archive:\n\n`
+    : `从研究档案中找到 ${relevantChunks.length} 条相关段落：\n\n`;
+
+  const body = relevantChunks.map(c =>
+    `**[Report ${c.reportId} — ${c.section}]**\n${c.text.slice(0, 400)}${c.text.length > 400 ? '...' : ''}`
   ).join('\n\n');
 
-  const systemPrompt = `You are a scholarly research assistant for XuanYan (宣研), a China missions research platform. Answer questions based ONLY on the provided source material. Always cite your sources using [Report XX - Section Name] format. If the sources don't contain enough information to fully answer, say so honestly. Respond in ${lang === 'cn' ? 'Chinese (简体中文)' : 'English'}.`;
+  const footer = lang === 'en'
+    ? '\n\n*Click any citation above to read the full report.*'
+    : '\n\n*点击上方引用阅读完整报告。*';
 
-  const userPrompt = `Context from research archive:\n\n${context}\n\nQuestion: ${question}`;
-
-  try {
-    const response = await callClaudeAPI(systemPrompt, userPrompt);
-    const citations = relevantChunks.map(c => ({
+  return {
+    role: 'assistant',
+    content: header + body + footer,
+    citations: relevantChunks.map(c => ({
       reportId: c.reportId,
       section: c.section,
       title: c.reportTitle[lang],
-    }));
-
-    return { role: 'assistant', content: response, citations };
-  } catch (error) {
-    // Fallback: generate answer from chunks directly
-    const fallback = generateFallbackAnswer(question, relevantChunks, lang);
-    return {
-      role: 'assistant',
-      content: fallback,
-      citations: relevantChunks.map(c => ({
-        reportId: c.reportId,
-        section: c.section,
-        title: c.reportTitle[lang],
-      })),
-    };
-  }
-}
-
-async function callClaudeAPI(system: string, user: string): Promise<string> {
-  // Call CF Workers proxy
-  const response = await fetch('/api/ask', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ system, user }),
-  });
-
-  if (!response.ok) throw new Error('API call failed');
-  const data = await response.json();
-  return data.response || data.content?.[0]?.text || '';
-}
-
-function generateFallbackAnswer(question: string, chunks: ArchiveChunk[], lang: string): string {
-  const prefix = lang === 'en'
-    ? 'Based on our research archive, here is what I found:\n\n'
-    : '根据我们的研究档案，以下是我找到的内容：\n\n';
-
-  const body = chunks.map((c, i) =>
-    `**[Report ${c.reportId} — ${c.section}]**\n${c.text.slice(0, 300)}${c.text.length > 300 ? '...' : ''}`
-  ).join('\n\n');
-
-  const suffix = lang === 'en'
-    ? '\n\n*Note: AI-generated synthesis is unavailable. Showing relevant archive excerpts. Click citations to read the full reports.*'
-    : '\n\n*注意：AI生成的综合分析暂时不可用。显示相关档案摘录。点击引用阅读完整报告。*';
-
-  return prefix + body + suffix;
+    })),
+  };
 }
 
 export function renderAskArchive(): void {
@@ -197,13 +159,11 @@ export function renderAskArchive(): void {
   wireChat(async (text) => {
     addUserMessage(text);
     chatHistory.push({ role: 'user', content: text });
-    showLoading(t('ask.thinking'));
-    sendBtn.disabled = true;
 
-    const response = await queryArchive(text);
+    // Client-side search — instant, no API needed
+    const response = queryArchive(text);
     chatHistory.push(response);
 
-    hideLoading();
     const citationsHtml = response.citations?.map(c =>
       `<a class="citation" href="#/research/${c.reportId}">[Report ${c.reportId}]</a>`
     ).join(' ') || '';
@@ -212,7 +172,6 @@ export function renderAskArchive(): void {
       (citationsHtml ? `<div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border);">${citationsHtml}</div>` : '');
     addAssistantMessage(responseHtml);
 
-    sendBtn.disabled = false;
     (document.getElementById('chat-input') as HTMLTextAreaElement)?.focus();
   });
 

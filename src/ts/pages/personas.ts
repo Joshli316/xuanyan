@@ -326,53 +326,27 @@ export function renderPersonaChat(): void {
 
   wireChat(async (text) => {
     addUserMessage(text);
-    showLoading(`${persona!.name[lang]} ${lang === 'en' ? 'is thinking...' : '正在思考...'}`);
-    sendBtn.disabled = true;
 
+    // Load persona excerpts and find the most relevant ones
     const allExcerpts = await getExcerpts(persona!.id, persona!.excerpts);
-    const topExcerpts = scoreExcerpts(allExcerpts, text, 5);
-    const relevantExcerpts = topExcerpts.map(e => `[${e.source}, ${e.year}]: "${e.text}"`).join('\n');
+    const top = scoreExcerpts(allExcerpts, text, 3);
 
-    const systemPrompt = persona!.systemPrompt[lang as 'en' | 'cn'] +
-      `\n\nYour known source excerpts:\n${relevantExcerpts}\n\nAlways cite sources when drawing from these excerpts. If asked about something not in your sources, say honestly that you don't have information about that.`;
+    // If nothing matched, show a broad selection
+    const results = top.length > 0 && top[0].score > 0 ? top : allExcerpts.slice(0, 3);
 
-    try {
-      const response = await fetch('/api/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ system: systemPrompt, user: text }),
-      });
+    const prefix = lang === 'cn'
+      ? `<p style="margin-bottom: 16px;">作为${persona!.name.cn}，让我从我的经历和著作中分享：</p>`
+      : `<p style="margin-bottom: 16px;">As ${persona!.name.en}, let me share from my experience and writings:</p>`;
 
-      hideLoading();
-      if (response.ok) {
-        const data = await response.json();
-        addAssistantMessage(formatResponse(data.response || data.content?.[0]?.text || ''));
-      } else {
-        addAssistantMessage(buildFallback(persona!, allExcerpts, text, lang));
-      }
-    } catch {
-      hideLoading();
-      addAssistantMessage(buildFallback(persona!, allExcerpts, text, lang));
-    }
+    const excerptHtml = results.map(e =>
+      `<div style="padding: 12px 16px; border-left: 2px solid var(--accent-gold); margin-bottom: 12px; background: var(--bg-tertiary);">
+        <p style="font-style: italic; line-height: 1.7; margin-bottom: 6px;">"${e.text}"</p>
+        <p style="font-size: 0.75rem; color: var(--text-tertiary); font-family: var(--font-mono);">— ${e.source}, ${e.year}</p>
+      </div>`
+    ).join('');
 
-    sendBtn.disabled = false;
+    addAssistantMessage(prefix + excerptHtml);
+
     (document.getElementById('chat-input') as HTMLTextAreaElement)?.focus();
   });
-}
-
-// Build fallback from excerpts when API is unavailable (no extra async fetch — reuses already-loaded excerpts)
-function buildFallback(persona: Persona, allExcerpts: { text: string; source: string; year: number }[], question: string, lang: string): string {
-  const top = scoreExcerpts(allExcerpts, question, 3);
-  const excerptHtml = top.map(e =>
-    `<p><em>"${e.text}"</em><br><span style="font-size: 0.75rem; color: var(--text-tertiary);">— ${e.source}, ${e.year}</span></p>`
-  ).join('');
-
-  const prefix = lang === 'cn'
-    ? `<p>作为${persona.name.cn}，让我从我的经历和著作中分享：</p>`
-    : `<p>As ${persona.name.en}, let me share from my experience and writings:</p>`;
-  const suffix = lang === 'cn'
-    ? '<p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">注意：AI服务暂时不可用。显示已知来源摘录。</p>'
-    : '<p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 12px; font-style: italic;">Note: AI service temporarily unavailable. Showing known source excerpts.</p>';
-
-  return prefix + excerptHtml + suffix;
 }
