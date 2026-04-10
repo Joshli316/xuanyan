@@ -1,4 +1,4 @@
-import { t } from '../i18n';
+import { t, getLang } from '../i18n';
 
 export function renderHome(): void {
   const app = document.getElementById('app')!;
@@ -113,8 +113,10 @@ export function renderHome(): void {
           <h2>Frontier Commons Innovation Lab</h2>
         </div>
         <div class="lab-content">
-          <p class="footer-mission" data-i18n="footer.mission">${t('footer.mission')}</p>
-          <a href="https://frontiercommons.org" class="btn btn-ghost" target="_blank" rel="noopener" data-i18n="footer.fc">${t('footer.fc')}</a>
+          <p class="footer-mission">${getLang() === 'en'
+            ? 'We believe AI can serve the Great Commission — not replace human connection, but extend it.'
+            : '我们相信AI可以服务于大使命——不是取代人际连接，而是延伸它。'}</p>
+          <a href="https://frontiercommons.org" class="btn btn-ghost" target="_blank" rel="noopener">${getLang() === 'en' ? 'Visit Our Site' : '访问官网'}</a>
         </div>
       </div>
     </section>
