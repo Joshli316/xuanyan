@@ -264,6 +264,130 @@ button:focus-visible,
   color: var(--bg-primary);
 }
 
+/* Sister projects menu */
+.sister-menu {
+  position: relative;
+}
+
+.sister-menu__btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.sister-menu__btn::after {
+  content: ' ▾';
+  font-size: 0.7em;
+  opacity: 0.7;
+}
+
+.sister-menu__btn:hover,
+.sister-menu__btn[aria-expanded="true"] {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.sister-menu__panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 280px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  z-index: 100;
+}
+
+.sister-menu.is-open .sister-menu__panel {
+  display: block;
+}
+
+.sister-menu__heading {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  padding: 8px 12px 4px;
+  opacity: 0.7;
+}
+
+.sister-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: background var(--transition);
+  font-size: 0.875rem;
+}
+
+.sister-menu__item:hover {
+  background: rgba(212, 164, 76, 0.08);
+  color: var(--accent-gold);
+}
+
+.sister-menu__item--main {
+  border: 1px solid rgba(212, 164, 76, 0.3);
+  margin-bottom: 4px;
+}
+
+.sister-menu__item-emoji {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.sister-menu__item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sister-menu__item-tag {
+  font-family: var(--font-serif, serif);
+  font-weight: 600;
+}
+
+.sister-menu__item-region {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.sister-menu__item--main .sister-menu__item-main-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+}
+
+@media (max-width: 767px) {
+  .sister-menu__btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+  .sister-menu__btn::after {
+    content: '';
+  }
+  .sister-menu__panel {
+    right: -8px;
+    min-width: min(280px, calc(100vw - 32px));
+  }
+}
+
 /* Search button */
 .search-btn {
   background: transparent;

@@ -4,12 +4,37 @@ interface Translations {
   [key: string]: { en: string; cn: string };
 }
 
+export interface SisterProject {
+  key: 'xuanyan' | 'sendo' | 'truyendao' | 'seonmun';
+  url: string;
+  emoji: string;
+  tag: string;
+  regionKey: string; // i18n key for region label
+  isMain: boolean;
+}
+
+export const SISTER_PROJECTS: SisterProject[] = [
+  { key: 'xuanyan',   url: 'https://xuanyan-cjf.pages.dev', emoji: '🇨🇳', tag: '宣研',       regionKey: 'sisters.china',   isMain: true  },
+  { key: 'sendo',     url: 'https://sendo.pages.dev',       emoji: '🇯🇵', tag: '宣道',       regionKey: 'sisters.japan',   isMain: false },
+  { key: 'truyendao', url: 'https://truyendao.pages.dev',   emoji: '🇻🇳', tag: '傳道',       regionKey: 'sisters.vietnam', isMain: false },
+  { key: 'seonmun',   url: 'https://seonmun.pages.dev',     emoji: '🇰🇵', tag: '선문 (宣門)', regionKey: 'sisters.nk',      isMain: false },
+];
+
 const strings: Translations = {
   // Nav
   'nav.research': { en: 'Research', cn: '研究' },
   'nav.tools': { en: 'Tools', cn: '工具' },
   'nav.about': { en: 'About', cn: '关于' },
   'nav.search': { en: 'Search', cn: '搜索' },
+  'nav.sisters_main': { en: '🌏 Sister Projects', cn: '🌏 姊妹项目' },
+
+  // Sister projects
+  'sisters.china': { en: 'China', cn: '中国' },
+  'sisters.japan': { en: 'Japan', cn: '日本' },
+  'sisters.vietnam': { en: 'Vietnam', cn: '越南' },
+  'sisters.nk': { en: 'North Korea', cn: '朝鲜' },
+  'sisters.aria_label': { en: 'Sister projects menu', cn: '姊妹项目菜单' },
+  'sisters.heading': { en: 'The Asia Quartet', cn: '亚洲四部曲' },
 
   // Hero
   'hero.title': { en: 'Where Missions History Meets AI Innovation', cn: '当宣教历史遇见人工智能' },
